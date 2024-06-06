@@ -17,11 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('idrole')->default('1');
+            $table->enum('role', ['Admin', 'Sale', 'Produksi', 'Gudang', 'Purchase'])->default('Admin');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('idrole')->references('idrole')->on('Roles')->onDelete('cascade');
-        });
+            });
         
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
