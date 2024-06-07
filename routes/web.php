@@ -27,8 +27,3 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-route::get('admin/dashboard',[HomeController::class, 'index'])->middleware(['auth', 'Admin']);
-route::get('sale/dashboard',[SaleController::class, 'index'])->middleware(['auth', 'Sale']);
-route::get('Purchase/dashboard',[PurchaseController::class, 'index'])->middleware(['auth', 'Purchase']);
-route::get('Gudang/dashboard',[GudangController::class, 'index'])->middleware(['auth', 'Gudang']);
-route::get('Produksi/dashboard',[ProduksiController::class, 'index'])->middleware(['auth', 'Produksi']);
