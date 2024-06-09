@@ -16,7 +16,16 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            @php
+                $role = strtolower(Auth::user()->role); // Mengubah role menjadi huruf kecil
+                $navigationView = 'layouts.' . $role . 'navigation'; // Membentuk nama view yang sesuai
+            @endphp
+
+            @if (View::exists($navigationView))
+                @include($navigationView)
+            @else
+                @include('layouts.defaultnavigation')
+            @endif
 
             <!-- Page Heading -->
             @if (isset($header))

@@ -15,34 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (Auth::user()->role == 'Admin')
                     <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Sale') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Inventory') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Purchase') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Production') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Manage User') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Report') }}
-                    </x-nav-link>
-                    @elseif (Auth::user()->role == 'Sale')
-                        <x-nav-link href="#" :active="request()->routeIs('#')">
                             {{ __('Input Penjualan') }}
                         </x-nav-link>
                         <x-nav-link href="#" :active="request()->routeIs('#')">
                             {{ __('Confirm Payment') }}
                         </x-nav-link>
-                    @endif
-                </div>
+                    </div>
             </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -96,33 +75,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            @if (Auth::user()->role == 'admin')
-                <x-dropdown-link href="#">
-                    {{ __('Input Penjualan') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Confirm Payment') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Input Barang Masuk') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Update Inventory') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Input Pembelian') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Confirm Penerimaan') }}
-                </x-dropdown-link>
-            @elseif (Auth::user()->role == 'sale')
                 <x-responsive-nav-link href="#">
                     {{ __('Input Penjualan') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="#">
                     {{ __('Confirm Payment') }}
                 </x-responsive-nav-link>
-            @endif
         </div>
 
         <!-- Responsive Settings Options -->
