@@ -15,11 +15,12 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Display the registration view with user list.
      */
     public function create(): View
     {
-        return view('auth.register');
+        $users = User::all(); // Ambil semua user dari database
+        return view('auth.register', compact('users'));
     }
 
     /**
@@ -27,8 +28,6 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-
-     
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -47,8 +46,17 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        return redirect(route('register'));
+    }
+    public function delete(Request $request): RedirectResponse
+    {
+        $userIds = $request->input('user_ids', []);
         
+        foreach ($userIds as $userId) {
+            $user = User::findOrFail($userId);
+            $user->delete();
+        }
 
-        return redirect(route('register', absolute: false));
+        return redirect()->back()->with('success', 'Users deleted successfully.');
     }
 }

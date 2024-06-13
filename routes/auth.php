@@ -59,4 +59,5 @@ Route::middleware('Admin')->group(function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::delete('/user/delete', [RegisteredUserController::class, 'delete'])->name('user.delete');
 });
