@@ -27,7 +27,7 @@
                     <x-nav-link href="#" :active="request()->routeIs('#')">
                         {{ __('Production') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                         {{ __('Manage User') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('#')">

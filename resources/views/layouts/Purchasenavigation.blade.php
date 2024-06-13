@@ -16,24 +16,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Sale') }}
+                        {{ __('Pembelian Padi') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Inventory') }}
+                        {{ __('Pembelian Barang') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Purchase') }}
+                        {{ __('Add Supplier') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Production') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Manage User') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Report') }}
-                    </x-nav-link>
-                </div>
+                    </div>
             </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -88,22 +79,13 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-dropdown-link href="#">
-                    {{ __('Input Penjualan') }}
+                    {{ __('Pembelian Padi') }}
                 </x-dropdown-link>
                 <x-dropdown-link href="#">
-                    {{ __('Confirm Payment') }}
+                    {{ __('Pembelian Barang') }}
                 </x-dropdown-link>
                 <x-dropdown-link href="#">
-                    {{ __('Input Barang Masuk') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Update Inventory') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Input Pembelian') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Confirm Penerimaan') }}
+                    {{ __('Add Supplier') }}
                 </x-dropdown-link>
             </div>
 
