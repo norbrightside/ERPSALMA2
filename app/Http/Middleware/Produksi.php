@@ -22,4 +22,4 @@ class Produksi
         }
         return $next($request);
     }
-}
+} 

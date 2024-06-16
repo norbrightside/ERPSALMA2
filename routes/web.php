@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaleController;
-use App\Http\Controllers\produksiController;
+use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\GudangController;
 
@@ -24,6 +24,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('Produksi')->group(function() {
+    Route::get('jadwal', [ProduksiController::class, 'create'])
+    ->name('jadwalProduksi');
+   
+    Route::get('/jadwal-produksi/create', [ProduksiController::class, 'createForm'])->name('jadwal-produksi.create');
+    Route::post('/jadwal-produksi/store', [ProduksiController::class, 'store'])->name('jadwal-produksi.store');
+
+});
 require __DIR__.'/auth.php';
 
 
