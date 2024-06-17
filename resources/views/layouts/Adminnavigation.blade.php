@@ -15,16 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('viewsales') }}" :active="request()->routeIs('viewsales')">
                         {{ __('Sale') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('viewinventory') }}" :active="request()->routeIs('viewinventory')">
                         {{ __('Inventory') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('viewpurchaselist') }}" :active="request()->routeIs('viewpurchaselist')">
                         {{ __('Purchase') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('jadwalProduksi')}}" :active="request()->routeIs('jadwalproduksi')">
                         {{ __('Production') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">

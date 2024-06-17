@@ -22,4 +22,12 @@ class Produk extends Model
     {
         return $this->hasMany(Produksi::class, 'idbarang', 'idbarang'); // Relasi dengan model Produksi
     }
+    public function pembelian()
+    {
+        return $this->hasMany(Produksi::class, 'idbarang', 'idbarang'); // Relasi dengan model Produksi
+    }
+    public function penjualan()
+    {
+        return $this->hasMany(Produksi::class, 'idbarang', 'idbarang'); // Relasi dengan model Produksi
+    }
 }

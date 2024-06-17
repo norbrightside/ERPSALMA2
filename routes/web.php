@@ -32,6 +32,22 @@ Route::middleware('Produksi')->group(function() {
     Route::post('/jadwal-produksi/store', [ProduksiController::class, 'store'])->name('jadwal-produksi.store');
 
 });
+
+Route::middleware('Gudang')->group(function() {
+    Route::get('viewinventory', [GudangController::class, 'create'])
+    ->name('viewinventory');
+  
+});
+Route::middleware('Sale')->group(function() {
+    Route::get('viewsales', [SaleController::class, 'create'])
+    ->name('viewsales');
+  
+});
+Route::middleware('Purchase')->group(function() {
+    Route::get('viewpurchaselist', [PurchaseController::class, 'create'])
+    ->name('viewpurchaselist');
+  
+});
 require __DIR__.'/auth.php';
 
 
