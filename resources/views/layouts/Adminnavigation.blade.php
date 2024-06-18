@@ -87,23 +87,23 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-dropdown-link href="#">
-                    {{ __('Input Penjualan') }}
+            <x-dropdown-link href="{{ route('viewsales') }}" :active="request()->routeIs('viewsales')">
+                {{ __('Sale') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Confirm Payment') }}
+                <x-dropdown-link href="{{ route('viewinventory') }}" :active="request()->routeIs('viewinventory')">
+                    {{ __('Inventory') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Input Barang Masuk') }}
+                <x-dropdown-link href="{{ route('viewpurchaselist') }}" :active="request()->routeIs('viewpurchaselist')">
+                    {{ __('Purchase') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Update Inventory') }}
+                <x-dropdown-link href="{{ route('jadwalProduksi')}}" :active="request()->routeIs('jadwalproduksi')">
+                    {{ __('Production') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Input Pembelian') }}
+                <x-dropdown-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                    {{ __('Manage User') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Confirm Penerimaan') }}
+                <x-dropdown-link href="#" :active="request()->routeIs('#')">
+                    {{ __('Report') }}
                 </x-dropdown-link>
             </div>
 

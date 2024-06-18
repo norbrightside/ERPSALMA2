@@ -24,7 +24,7 @@
                     <x-nav-link href="#" :active="request()->routeIs('#')">
                         {{ __('Pencatatan Inventory') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('viewinventory') }}" :active="request()->routeIs('viewinventory')">
                         {{ __('Cek Inventory') }}
                     </x-nav-link>
                 </div>

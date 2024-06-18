@@ -78,7 +78,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-dropdown-link href="#">
+            <x-dropdown-link href="{{ route('jadwalProduksi')}}" :active="request()->routeIs('jadwalproduksi')">
                     {{ __('Add Jadwal Produksi') }}
                 </x-dropdown-link>
                 <x-dropdown-link href="#">

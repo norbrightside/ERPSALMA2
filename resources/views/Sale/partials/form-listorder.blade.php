@@ -1,5 +1,5 @@
 
-<h3 class="text-lg font-semibold mb-4">Daftar Produksi</h3>
+<h3 class="text-lg font-semibold mb-4">Daftar Penjualan</h3>
 <table class="min-w-full divide-y divide-gray-200">
     <thead class="bg-gray-50">
         <tr>
