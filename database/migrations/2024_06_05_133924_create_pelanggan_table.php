@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('idpelanggan');
             $table->string('namapelanggan');
             $table->string('alamat');
-            $table->smallInteger('kontak');
+            $table->Integer('kontak');
             $table->timestamps();
         });
     }

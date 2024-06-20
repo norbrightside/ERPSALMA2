@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('idsupplier');
             $table->string('namasupplier');
             $table->string('alamat');
-            $table->smallInteger('kontak');
+            $table->Integer('kontak');
             $table->timestamps();
         });
     }

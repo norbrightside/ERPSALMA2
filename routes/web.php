@@ -27,15 +27,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('Produksi')->group(function() {
     Route::get('jadwal', [ProduksiController::class, 'create'])
     ->name('jadwalProduksi');
-   
-    Route::get('/jadwal-produksi/create', [ProduksiController::class, 'createForm'])->name('jadwal-produksi.create');
-    Route::post('/jadwal-produksi/store', [ProduksiController::class, 'store'])->name('jadwal-produksi.store');
-
 });
 
 Route::middleware('Gudang')->group(function() {
     Route::get('viewinventory', [GudangController::class, 'create'])
     ->name('viewinventory');
+
   
 });
 Route::middleware('Sale')->group(function() {

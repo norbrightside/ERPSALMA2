@@ -15,7 +15,7 @@ class PurchaseController extends Controller
 {
     public function create(): View
     {
-        $viewpurchaselist = pembelian::with('produk','pelanggan')->get(); // Ambil semua jadwal dari database
+        $viewpurchaselist = pembelian::with('produk','supplier')->get(); // Ambil semua jadwal dari database
         return view('Purchase.datapembelian', compact('viewpurchaselist'));
         
     }

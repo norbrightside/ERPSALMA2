@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('inventory', function (Blueprint $table) {
             $table->id('idgudang');
+            $table->string('lokasigudang');
             $table->date('tanggal');
             $table->unsignedBigInteger('idbarang');
             $table->float('qtty');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
+            $table->string('status');
         });
     }
 

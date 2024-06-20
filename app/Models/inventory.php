@@ -12,6 +12,7 @@ class inventory extends Model
 
     protected $fillable = [
         'idgudang',
+        'lokasigudang',
         'tanggal',
         'idbarang',
         'qtty',	

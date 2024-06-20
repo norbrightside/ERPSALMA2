@@ -16,7 +16,7 @@
         @foreach ($viewsales as $sales)
         <tr>
             <td class="px-6 py-4 whitespace-nowrap">{{ $sales->nofak}}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $sales->tanggal}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ $sales->tanggalpenjualan}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $sales->pelanggan->namapelanggan}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $sales->produk->namabarang}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sales->nilaitransaksi, 0, ',', '.')}}</td>
