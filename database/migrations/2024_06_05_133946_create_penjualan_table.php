@@ -18,9 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('idbarang');
             $table->float('nilaitransaksi');
             $table->float('qttypenjualan');
-            $table->string('status');
+            $table->enum('status', ['Order Baru', 'Lunas','Pengiriman', 'Selesai']);
             $table->foreign('idpelanggan')->references('idpelanggan')->on('pelanggan')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
+            $table->timestamp('updated_at')->nullable();;
+            $table->timestamp('created_at')->nullable();;
         });
     }
 

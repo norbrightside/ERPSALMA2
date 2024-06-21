@@ -15,6 +15,8 @@ class Produk extends Model
         'idbarang',
         'namabarang',
         'harga',
+        'updated_at',
+        'created_at',
         // tambahkan kolom lain yang relevan
     ];
 

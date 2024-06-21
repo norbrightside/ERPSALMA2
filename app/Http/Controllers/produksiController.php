@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Produksi;
+use App\Models\Produk;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -14,27 +15,28 @@ class ProduksiController extends Controller
 {
     public function create(): View
     {
+        $produk = Produk::all();
         $jadwalProduksi = Produksi::with('produk')->get(); // Ambil semua jadwal dari database
-        return view('produksi.jadwalproduksi', compact('jadwalProduksi'));
+        return view('produksi.jadwalproduksi', compact('jadwalProduksi','produk'));
         
     }
     public function store(Request $request)
-{
-    // Validasi data yang dikirim dari form
-    $validatedData = $request->validate([
-        'tanggalproduksi' => 'required|date',
-        'biayaproduksi' => 'required|numeric',
-        'idbarang' => 'required|exists:barang,id',
-        'qttyproduksi' => 'required|integer|min:1',
-        'status' => 'required|in:Pending,Selesai,Batal',
-    ]);
+    {
+        $request->validate([
+            'tanggalproduksi' => ['required', 'date'],
+            'biayaproduksi' => ['required', 'numeric', 'min:0'],
+            'idbarang' => ['required', 'exists:produk,idbarang'],
+            'qttyproduksi' => ['required', 'numeric', 'min:0'],
+        ]);
 
-    // Simpan data jadwal produksi ke dalam database
-    Produksi::create($validatedData);
+        $addjadwal = Produksi::create([
+            'tanggalproduksi' => $request->tanggalproduksi,
+            'biayaproduksi' => $request->biayaproduksi,
+            'idbarang' => $request->idbarang,
+            'qttyproduksi' => $request->qttyproduksi,
+        ]);
 
-    // Redirect ke halaman lain dengan pesan sukses atau yang lainnya
-    return redirect()->route('jadwal-produksi.index')->with('success', 'Jadwal produksi berhasil ditambahkan!');
-}
-
+        return redirect()->back()->with('success', 'Jadwal Produksi berhasil ditambahkan');
+    }
     //
 }

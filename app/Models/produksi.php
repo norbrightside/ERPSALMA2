@@ -12,11 +12,14 @@ class Produksi extends Model
     protected $table = 'produksi'; // Sesuaikan dengan nama tabel di database
 
     protected $fillable = [
+        'idproduksi',
         'tanggalproduksi',
         'biayaproduksi',
         'idbarang',
         'qttyproduksi',
         'status',
+        'updated_at',
+        'created_at',
     ];
 
     public function produk()

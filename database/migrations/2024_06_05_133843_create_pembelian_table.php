@@ -20,6 +20,8 @@ return new class extends Migration
             $table->float('hargapembelian');
             $table->foreign('idsupplier')->references('idsupplier')->on('supplier')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
+            $table->timestamp('updated_at')->nullable();;
+            $table->timestamp('created_at')->nullable();;
         });
         
     }

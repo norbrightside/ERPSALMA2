@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('idbarang');
             $table->float('qtty');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
-            $table->string('status');
+            $table->timestamp('updated_at')->nullable();;
+            $table->timestamp('created_at')->nullable();;
         });
     }
 

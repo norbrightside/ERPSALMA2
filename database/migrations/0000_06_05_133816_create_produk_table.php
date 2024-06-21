@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('idbarang');
             $table->string('namabarang');
             $table->float('harga');
+            $table->timestamp('updated_at')->nullable();;
+            $table->timestamp('created_at')->nullable();;
             
         });
     }

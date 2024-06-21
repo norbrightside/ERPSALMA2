@@ -16,6 +16,8 @@ class inventory extends Model
         'tanggal',
         'idbarang',
         'qtty',	
+        'updated_at',
+        'created_at',
     ];
 
     public function produk()

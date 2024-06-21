@@ -27,11 +27,19 @@ Route::middleware('auth')->group(function () {
 Route::middleware('Produksi')->group(function() {
     Route::get('jadwal', [ProduksiController::class, 'create'])
     ->name('jadwalProduksi');
+    Route::get('/produksi/create', [ProduksiController::class, 'create'])->name('produksi.create');
+    Route::post('/produksi/store', [ProduksiController::class,'store'])->name('produksi.store');
+
 });
 
 Route::middleware('Gudang')->group(function() {
     Route::get('viewinventory', [GudangController::class, 'create'])
     ->name('viewinventory');
+
+Route::get('/gudang/create', [GudangController::class, 'create'])->name('gudang.create');
+Route::post('/inventory/store', [GudangController::class, 'store'])->name('inventory.store');
+
+Route::post('/produk/store', [GudangController::class, 'storeProduk'])->name('produk.store');
 
   
 });
