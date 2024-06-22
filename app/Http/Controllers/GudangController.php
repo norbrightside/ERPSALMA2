@@ -38,8 +38,8 @@ class GudangController extends Controller
     public function storeProduk(Request $request)
     {
         $request->validate([
-            'namabarang' => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
+            'namabarang' => ['required','string','max:255'],
+            'harga' => ['required','numeric','min:0'],
         ]);
 
         Produk::create([

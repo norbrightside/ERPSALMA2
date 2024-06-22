@@ -14,6 +14,29 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('input[data-type="currency"]').forEach(function (input) {
+                input.addEventListener('input', function (e) {
+                    function formatCurrency(value) {
+                        return value.replace(/\D/g, '')
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    }
+    
+                    let value = input.value;
+                    value = formatCurrency(value);
+                    input.value = value;
+                });
+            });
+    
+            document.getElementById('Form').addEventListener('submit', function (e) {
+                document.querySelectorAll('input[data-type="currency"]').forEach(function (input) {
+                    input.value = input.value.replace(/,/g, '');
+                });
+            });
+        });
+    </script>
+    
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @php

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory', function (Blueprint $table) {
-            $table->id('idgudang');
+            $table->id('idgudang')->unique()->primary();
             $table->string('lokasigudang');
             $table->date('tanggal');
             $table->unsignedBigInteger('idbarang');

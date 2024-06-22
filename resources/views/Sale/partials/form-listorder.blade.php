@@ -1,6 +1,6 @@
 
 <h3 class="text-lg font-semibold mb-4">Daftar Penjualan</h3>
-<table class="min-w-full divide-y divide-gray-200">
+<table class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <thead class="bg-gray-50">
         <tr>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Faktur</th>
@@ -12,7 +12,7 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
         </tr>
     </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
+    <tbody class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         @foreach ($viewsales as $sales)
         <tr>
             <td class="px-6 py-4 whitespace-nowrap">{{ $sales->nofak}}</td>

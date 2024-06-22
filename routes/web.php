@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ProduksiController;
@@ -46,12 +47,17 @@ Route::post('/produk/store', [GudangController::class, 'storeProduk'])->name('pr
 Route::middleware('Sale')->group(function() {
     Route::get('viewsales', [SaleController::class, 'create'])
     ->name('viewsales');
-  
+    Route::get('/penjualan/create', [SaleController::class, 'create'])->name('penjualan.create');
+    Route::post('/penjualan/store', [SaleController::class, 'store'])->name('penjualan.store');
+    Route::get('/pelanggan/create', [PelangganController::class, 'create'])->name('pelanggan.create');
+    Route::post('/pelanggan/store', [PelangganController::class, 'store'])->name('pelanggan.store');
 });
 Route::middleware('Purchase')->group(function() {
     Route::get('viewpurchaselist', [PurchaseController::class, 'create'])
     ->name('viewpurchaselist');
-  
+    Route::get('/pembelian/create', [PurchaseController::class, 'create'])
+    ->name('pembelian.create');
+    Route::post('/pembelian/store', [PurchaseController::class, 'store'])->name('pembelian.store');
 });
 require __DIR__.'/auth.php';
 

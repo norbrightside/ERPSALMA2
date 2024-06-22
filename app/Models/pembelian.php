@@ -17,6 +17,8 @@ class pembelian extends Model
         'idbarang',
         'qttyorder',
         'hargapembelian',
+        'created_at',
+        'updated_at',
     ];
     public function produk()
     {

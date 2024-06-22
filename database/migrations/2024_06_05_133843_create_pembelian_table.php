@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembelian', function (Blueprint $table) {
-            $table->id('idorder');
+            $table->id('idorder')->unique()->primary();
             $table->date('tanggalorder');
             $table->unsignedBigInteger('idsupplier');
             $table->unsignedBigInteger('idbarang');

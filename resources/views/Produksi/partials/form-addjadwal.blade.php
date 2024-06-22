@@ -1,6 +1,6 @@
 <!-- resources/views/Gudang/partials/form-addinventory.blade.php -->
 
-<form action="{{ route('produksi.store') }}" method="POST" class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="produksiForm">
+<form action="{{ route('produksi.store') }}" method="POST" class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="Form">
     @csrf
 
     <div class="mb-4">
@@ -32,25 +32,3 @@
     </div>
 </form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('input[data-type="currency"]').forEach(function (input) {
-            input.addEventListener('input', function (e) {
-                function formatCurrency(value) {
-                    return value.replace(/\D/g, '')
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                }
-
-                let value = input.value;
-                value = formatCurrency(value);
-                input.value = value;
-            });
-        });
-
-        document.getElementById('produksiForm').addEventListener('submit', function (e) {
-            document.querySelectorAll('input[data-type="currency"]').forEach(function (input) {
-                input.value = input.value.replace(/,/g, '');
-            });
-        });
-    });
-</script>

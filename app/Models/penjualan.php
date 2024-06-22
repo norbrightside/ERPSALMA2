@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class penjualan extends Model
+class Penjualan extends Model
 {
     use HasFactory;
     protected $table = 'penjualan'; // Sesuaikan dengan nama tabel di database
@@ -18,14 +18,17 @@ class penjualan extends Model
         'nilaitransaksi',
         'qttypenjualan',
         'status',
+        'updated_at',
+        'created_at',
     ];
 
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'idbarang', 'idbarang'); // Relasi dengan model Produk
     }
+
     public function pelanggan()
     {
-        return $this->belongsTo(pelanggan::class, 'idpelanggan', 'idpelanggan'); // Relasi dengan model Pelanggan
+        return $this->belongsTo(Pelanggan::class, 'idpelanggan', 'idpelanggan'); // Relasi dengan model Pelanggan
     }
 }
