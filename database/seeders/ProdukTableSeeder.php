@@ -4,15 +4,19 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class ProdukTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('produk')->insert([
-            ['namabarang' => 'Produk A', 'harga' => 10000],
-            ['namabarang' => 'Produk B', 'harga' => 15000],
-            ['namabarang' => 'Produk C', 'harga' => 20000],
-        ]);
+        $faker = Faker::create();
+
+        foreach (range(1, 100) as $index) {
+            DB::table('produk')->insert([
+                'namabarang' => $faker->word,
+                'harga' => $faker->numberBetween(500000, 5000000),
+            ]);
+        }
     }
 }

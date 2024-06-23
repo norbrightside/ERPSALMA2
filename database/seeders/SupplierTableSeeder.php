@@ -4,14 +4,20 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class SupplierTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('supplier')->insert([
-            ['namasupplier' => 'Supplier A', 'alamat' => 'Alamat A', 'kontak' => 12345],
-            ['namasupplier' => 'Supplier B', 'alamat' => 'Alamat B', 'kontak' => 67890],
-        ]);
+        $faker = Faker::create();
+
+        foreach (range(1, 100) as $index) {
+            DB::table('supplier')->insert([
+                'namasupplier' => $faker->name,
+                'alamat' => $faker->address,
+                'kontak' => $faker->phoneNumber,
+            ]);
+        }
     }
 }

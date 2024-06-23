@@ -38,13 +38,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="flex items-center justify-end mt-4">
-                            <!-- Button to delete selected users -->
-                            <x-danger-button onclick="event.preventDefault(); deleteUsers()">
-                                {{ __('Delete Selected') }}
-                            </x-danger-button>
-                        </div>
+                        
                     </form>
+                </div>
+                <div class="flex items-center justify-end mt-4">
+                    <!-- Button to delete selected users -->
+                    <x-danger-button onclick="event.preventDefault(); deleteUsers()">
+                        {{ __('Delete Selected') }}
+                    </x-danger-button>
                 </div>
             </div>
 

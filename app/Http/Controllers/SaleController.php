@@ -14,7 +14,7 @@ class SaleController extends Controller
     {
         $pelanggan = Pelanggan::all();
         $produk = Produk::all();
-        $viewsales = Penjualan::with('produk', 'pelanggan')->get(); // Ambil semua jadwal dari database
+        $viewsales = Penjualan::with('produk', 'pelanggan')->paginate(15); // Ambil semua jadwal dari database
         return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
     }
 

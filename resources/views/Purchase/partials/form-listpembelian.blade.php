@@ -24,3 +24,7 @@
         @endforeach
     </tbody>
 </table>
+
+<div class="bg-white px-4 py-3 sm:px-6">
+    {{ $viewpurchaselist->appends(request()->input())->links() }}
+</div>

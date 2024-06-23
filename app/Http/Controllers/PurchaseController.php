@@ -19,7 +19,7 @@ class PurchaseController extends Controller
     {
         $supplier = supplier::all();
         $produk = Produk::all();
-        $viewpurchaselist = pembelian::with('produk','supplier')->get(); // Ambil semua jadwal dari database
+        $viewpurchaselist = pembelian::with('produk','supplier')->paginate(15); // Ambil semua jadwal dari database
         return view('Purchase.datapembelian', compact('viewpurchaselist','supplier','produk'));
         
     }

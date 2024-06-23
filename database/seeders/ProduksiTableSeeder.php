@@ -4,15 +4,22 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class ProduksiTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('produksi')->insert([
-            ['tanggalproduksi' => '2024-01-10', 'biayaproduksi' => 50000, 'idbarang' => 1, 'qttyproduksi' => 100, 'status' => 'selesai'],
-            ['tanggalproduksi' => '2024-02-15', 'biayaproduksi' => 75000, 'idbarang' => 2, 'qttyproduksi' => 150, 'status' => 'selesai'],
-        ]);
+        $faker = Faker::create();
+
+        foreach (range(1, 100) as $index) {
+            DB::table('produksi')->insert([
+                'tanggalproduksi' => $faker->date(),
+                'biayaproduksi' => $faker->numberBetween(100000, 10000000),
+                'idbarang' => $faker->numberBetween(1, 100),
+                'qttyproduksi' => $faker->numberBetween(50, 500),
+                'status' => $faker->randomElement(['Preproduksi', 'Produksi', 'Selesai']),
+            ]);
+        }
     }
 }
-

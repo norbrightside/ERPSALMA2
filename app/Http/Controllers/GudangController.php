@@ -12,7 +12,7 @@ class GudangController extends Controller
     public function create(): View
     {
         $produk = Produk::all(); // Ambil semua data produk
-        $viewinventory = Inventory::with('produk')->get(); // Ambil semua data inventory dengan relasi produk
+        $viewinventory = Inventory::with('produk')->paginate(15); // Ambil semua data inventory dengan relasi produk
         return view('Gudang.inventory', compact('viewinventory', 'produk'));
     }
 

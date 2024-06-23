@@ -16,8 +16,8 @@ class ProduksiController extends Controller
     public function create(): View
     {
         $produk = Produk::all();
-        $jadwalProduksi = Produksi::with('produk')->get(); // Ambil semua jadwal dari database
-        return view('produksi.jadwalproduksi', compact('jadwalProduksi','produk'));
+        $jadwalProduksi = Produksi::with('produk')->paginate(15); // Paginate the results
+        return view('produksi.jadwalproduksi', compact('jadwalProduksi', 'produk'));
         
     }
     public function store(Request $request)

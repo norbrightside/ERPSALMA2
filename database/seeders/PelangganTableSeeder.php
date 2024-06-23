@@ -4,14 +4,20 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class PelangganTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('pelanggan')->insert([
-            ['namapelanggan' => 'Pelanggan A', 'alamat' => 'Alamat A', 'kontak' => 12345],
-            ['namapelanggan' => 'Pelanggan B', 'alamat' => 'Alamat B', 'kontak' => 67890],
-        ]);
+        $faker = Faker::create();
+
+        foreach (range(1, 100) as $index) {
+            DB::table('pelanggan')->insert([
+                'namapelanggan' => $faker->name,
+                'alamat' => $faker->address,
+                'kontak' => $faker->phoneNumber,
+            ]);
+        }
     }
 }

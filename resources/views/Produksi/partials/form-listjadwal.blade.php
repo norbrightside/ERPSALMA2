@@ -22,3 +22,7 @@
         @endforeach
     </tbody>
 </table>
+
+<div class="bg-white px-4 py-3 sm:px-6">
+    {{ $jadwalProduksi->appends(request()->input())->links() }}
+</div>
