@@ -19,8 +19,12 @@ class SaleController extends Controller
             ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
             ->latest()
             ->paginate(15);
+        $laporan = Penjualan::with('produk','Pelanggan')
+        ->orderBy(DB::raw('CASE WHEN status = "Selesai" THEN 1 ELSE 2 END'))
+            ->latest()
+            ->paginate(15);
 
-        return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
+        return view('Sale.order', compact('viewsales', 'pelanggan', 'produk','laporan'));
     }
 
     public function store(Request $request)

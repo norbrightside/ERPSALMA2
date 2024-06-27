@@ -28,14 +28,14 @@ class GudangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'lokasigudang' => ['required', 'string', 'max:255'],
+            'idgudang' => ['required', 'exists:gudang,gudang'],
             'tanggal' => ['required', 'date'],
             'idbarang' => ['required', 'exists:produk,idbarang'],
             'qtty' => ['required', 'numeric', 'min:0'],
         ]);
 
         $inventory = Inventory::create([
-            'lokasigudang' => $request->lokasigudang,
+            'idgudang' => $request->idgudang,
             'tanggal' => $request->tanggal,
             'idbarang' => $request->idbarang,
             'qtty' => $request->qtty,
