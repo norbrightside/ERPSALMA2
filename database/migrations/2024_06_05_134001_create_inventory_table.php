@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory', function (Blueprint $table) {
-            $table->id('idgudang')->unique()->primary();
-            $table->string('lokasigudang');
+            $table->id()->primary();
+            $table->string('idgudang');
             $table->date('tanggal');
-            $table->unsignedBigInteger('idbarang');
+            $table->string('idbarang');
             $table->float('qtty');
+            $table->timestamps(); // Ini akan membuat created_at dan updated_at sebagai timestamp
+
+            // Definisi foreign key constraints
+            $table->foreign('idgudang')->references('idgudang')->on('gudang')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
-            $table->timestamp('updated_at')->nullable();;
-            $table->timestamp('created_at')->nullable();;
         });
     }
 
@@ -30,4 +32,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('inventory');
     }
-};
+}
+;

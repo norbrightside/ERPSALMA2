@@ -21,6 +21,14 @@ class Penjualan extends Model
         'updated_at',
         'created_at',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($penjualan) {
+            $penjualan->nofak = 'slmaa-121' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
+        });
+    }
 
     public function produk()
     {

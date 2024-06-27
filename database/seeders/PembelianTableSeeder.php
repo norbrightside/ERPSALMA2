@@ -11,12 +11,17 @@ class PembelianTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-
+        $produkIds = DB::table('produk')->pluck('idbarang')->toArray();
+        $gudangIds = DB::table('gudang')->pluck('idgudang')->toArray();
+        $supplierIds = DB::table('supplier')->pluck('idsupplier')->toArray();
         foreach (range(1, 100) as $index) {
             DB::table('pembelian')->insert([
+                'idorder' => 'odr-111' . $index,
                 'tanggalorder' => $faker->date(),
-                'idsupplier' => $faker->numberBetween(1, 100),
-                'idbarang' => $faker->numberBetween(1, 100),
+                'idsupplier' => $faker->randomElement($supplierIds),
+                'idgudang' => $faker->randomElement($gudangIds),
+                'idbarang' => $faker->randomElement($produkIds),
+                'status' => $faker->randomElement(['Order Baru','Dibayar']),
                 'qttyorder' => $faker->numberBetween(10, 5000),
                 'hargapembelian' => $faker->numberBetween(1000000, 500000000),
             ]);

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penjualan', function (Blueprint $table) {
-            $table->id('nofak')->unique()->primary();
+            $table->string('nofak')->primary();
             $table->date('tanggalpenjualan');
-            $table->unsignedBigInteger('idpelanggan');
-            $table->unsignedBigInteger('idbarang');
+            $table->string('idpelanggan');
+            $table->string('idbarang');
             $table->float('nilaitransaksi');
             $table->float('qttypenjualan');
             $table->enum('status', ['Order Baru', 'Lunas','Pengiriman', 'Selesai'])->default('Order Baru');

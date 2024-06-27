@@ -22,6 +22,15 @@ class Produksi extends Model
         'created_at',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($produksi) {
+            $produksi->idproduksi = 'prdksi-421' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
+        });
+    }
+
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'idbarang', 'idbarang'); // Relasi dengan model Produk

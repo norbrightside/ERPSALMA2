@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('produksi', function (Blueprint $table) {
-            $table->id('idproduksi')->unique()->primary();
+            $table->string('idproduksi')->primary();
             $table->date('tanggalproduksi');
             $table->float('biayaproduksi');
-            $table->unsignedBigInteger('idbarang');
+            $table->string('idbarang');
             $table->float('qttyproduksi');
             $table->enum('status', ['Preproduksi', 'Produksi', 'Selesai'])->default('Preproduksi');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');

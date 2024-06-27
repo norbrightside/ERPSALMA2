@@ -13,10 +13,13 @@ class InventoryTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 100) as $index) {
+            $produkIds = DB::table('produk')->pluck('idbarang')->toArray();
+            // Ambil semua idgudang dari tabel gudang
+            $gudangIds = DB::table('gudang')->pluck('idgudang')->toArray(); 
             DB::table('inventory')->insert([
-                'lokasigudang' => $faker->city,  // Menggunakan city untuk lokasi acak
+                'idgudang' => $faker->randomElement($gudangIds),
                 'tanggal' => $faker->date(),
-                'idbarang' => $faker->numberBetween(1, 100),
+                'idbarang' => $faker->randomElement($produkIds),
                 'qtty' => $faker->numberBetween(50, 500),
             ]);
         }

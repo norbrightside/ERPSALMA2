@@ -9,7 +9,7 @@ class inventory extends Model
 {
     use HasFactory;
     protected $table = 'inventory'; // Sesuaikan dengan nama tabel di database
-    protected $primaryKey = 'idgudang';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
         'idgudang',
@@ -20,17 +20,14 @@ class inventory extends Model
         'updated_at',
         'created_at',
     ];
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($Inventory) {
-            $Inventory->idgudang = 'Pdg-11' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
-        });
-    }
+   
 
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'idbarang', 'idbarang'); // Relasi dengan model Produk
+    }
+    public function gudang()
+    {
+        return $this->belongsTo(gudang::class,'idgudang','idgudang');
     }
 }

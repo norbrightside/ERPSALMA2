@@ -12,8 +12,9 @@ class SupplierTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 100) as $index) {
+        foreach (range(1, 7) as $index) {
             DB::table('supplier')->insert([
+                'idsupplier' => 'splly-11'. $index,
                 'namasupplier' => $faker->name,
                 'alamat' => $faker->address,
                 'kontak' => $faker->phoneNumber,
