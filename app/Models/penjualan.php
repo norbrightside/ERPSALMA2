@@ -9,7 +9,7 @@ class Penjualan extends Model
 {
     use HasFactory;
     protected $table = 'penjualan'; // Sesuaikan dengan nama tabel di database
-
+    protected $primaryKey ='nofak';
     protected $fillable = [
         'nofak',
         'tanggalpenjualan',

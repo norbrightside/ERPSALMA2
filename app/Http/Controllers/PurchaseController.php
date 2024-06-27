@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\pembelian;
 use App\Models\supplier;
 use App\Models\Produk;
+use App\Models\gudang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -17,12 +18,14 @@ class PurchaseController extends Controller
 {
     public function create(): View
     {
+
+        $gudang = gudang::all();
         $supplier = supplier::all();
         $produk = Produk::all();
         $viewpurchaselist = pembelian::with('produk','supplier')->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
         ->latest()
         ->paginate(15);
-        return view('Purchase.datapembelian', compact('viewpurchaselist','supplier','produk'));
+        return view('Purchase.datapembelian', compact('viewpurchaselist','supplier','produk', 'gudang'));
         
     }
 
@@ -32,19 +35,23 @@ class PurchaseController extends Controller
             'tanggalorder' => ['required', 'date'],
             'idsupplier' => ['required', 'exists:supplier,idsupplier'],
             'idbarang' => ['required', 'exists:produk,idbarang'],
+            'idgudang' => ['required', 'exists:gudang,idgudang'],
             'qttyorder' => ['required', 'numeric', 'min:0'],
             'hargapembelian' => ['required', 'numeric', 'min:0'],
         ]);
-
+        $totalBayar = $request->qttyorder * $request->hargapembelian;
         pembelian::create([
             'tanggalorder' => $request->tanggalorder,
             'idsupplier' => $request->idsupplier,
             'idbarang' => $request->idbarang,
+            'idgudang' => $request->idgudang,
             'qttyorder' => $request->qttyorder,
             'hargapembelian' => $request->hargapembelian,
+            'totalbayar' => $totalBayar,
+            
         ]);
-
-        return redirect()->back()->with('success', 'Penjualan berhasil ditambahkan');
+        
+        return redirect()->back()->with('success', 'Pembelian berhasil ditambahkan');
         }
     //
 }

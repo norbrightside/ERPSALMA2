@@ -9,12 +9,13 @@ class pembelian extends Model
 {
     use HasFactory;
     protected $table = 'pembelian'; // Sesuaikan dengan nama tabel di database
-
+    protected $primaryKey ='idorder';
     protected $fillable = [
         'idorder',	
         'tanggalorder',	
         'idsupplier',	
         'idbarang',
+        'idgudang',
         'qttyorder',
         'status',
         'hargapembelian',
@@ -30,5 +31,9 @@ class pembelian extends Model
     public function supplier()
     {
         return $this->belongsTo(supplier::class, 'idsupplier', 'idsupplier'); // Relasi dengan model Pelanggan
+    }
+    public function gudang()
+    {
+        return $this->belongsTo(gudang::class, 'idgudang', 'idgudang'); // Relasi dengan model Produk
     }
 }

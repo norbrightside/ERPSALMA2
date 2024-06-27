@@ -58,6 +58,7 @@ Route::middleware('Purchase')->group(function() {
     Route::get('/pembelian/create', [PurchaseController::class, 'create'])
     ->name('pembelian.create');
     Route::post('/pembelian/store', [PurchaseController::class, 'store'])->name('pembelian.store');
+    Route::get('/pembelian/{id}/print', [PurchaseController::class, 'printNota'])->name('pembelian.printNota');
 });
 require __DIR__.'/auth.php';
 

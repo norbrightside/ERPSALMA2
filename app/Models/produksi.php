@@ -10,7 +10,7 @@ class Produksi extends Model
     use HasFactory;
 
     protected $table = 'produksi'; // Sesuaikan dengan nama tabel di database
-
+    protected $primaryKey ='idproduksi';
     protected $fillable = [
         'idproduksi',
         'tanggalproduksi',
