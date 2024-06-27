@@ -10,7 +10,7 @@ class PembelianTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $faker = Faker::create(config('app.faker_locale'));
         $produkIds = DB::table('produk')->pluck('idbarang')->toArray();
         $gudangIds = DB::table('gudang')->pluck('idgudang')->toArray();
         $supplierIds = DB::table('supplier')->pluck('idsupplier')->toArray();

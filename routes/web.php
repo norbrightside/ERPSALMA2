@@ -8,7 +8,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\GudangController;
-use App\Http\Controllers\AvailableStocksController;
+
 use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
@@ -41,7 +41,7 @@ Route::get('/gudang/create', [GudangController::class, 'create'])->name('gudang.
 Route::post('/inventory/store', [GudangController::class, 'store'])->name('inventory.store');
 
 Route::post('/produk/store', [GudangController::class, 'storeProduk'])->name('produk.store');
-Route::get('/available-stocks', [AvailableStocksController::class, 'availableStocks'])->name('available.stocks');
+
   
 });
 Route::middleware('Sale')->group(function() {

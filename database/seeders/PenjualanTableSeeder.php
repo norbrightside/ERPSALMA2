@@ -10,7 +10,7 @@ class PenjualanTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $faker = Faker::create(config('app.faker_locale'));
 
         foreach (range(1, 100) as $index) {
             $produkIds = DB::table('produk')->pluck('idbarang')->toArray();

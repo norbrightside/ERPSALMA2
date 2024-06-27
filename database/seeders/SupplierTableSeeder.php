@@ -10,7 +10,7 @@ class SupplierTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $faker = Faker::create(config('app.faker_locale'));
 
         foreach (range(1, 7) as $index) {
             DB::table('supplier')->insert([

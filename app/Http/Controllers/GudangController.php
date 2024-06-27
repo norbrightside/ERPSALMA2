@@ -11,12 +11,18 @@ class GudangController extends Controller
 {
  
     public function create(): View
-    {
+    {   $stok = DB::table('gudang')
+        ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
+        ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
+        ->select('gudang.lokasigudang', 'produk.namabarang', DB::raw('SUM(inventory.qtty) as total_qtty'))
+        ->groupBy('produk.namabarang', 'gudang.lokasigudang')
+        ->orderBy('produk.namabarang', 'desc')
+        ->paginate(15);
         $produk = Produk::all(); // Ambil semua data produk
         $viewinventory = Inventory::with('produk')->orderBy('idbarang', 'desc')
         ->latest()
         ->paginate(15);
-        return view('Gudang.inventory', compact('viewinventory', 'produk'));
+        return view('Gudang.inventory', compact('viewinventory', 'produk','stok'));
     }
 
     public function store(Request $request)

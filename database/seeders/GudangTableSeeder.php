@@ -11,9 +11,10 @@ class GudangTableSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
-        $faker = Faker::create();
+        $faker = Faker::create(config('app.faker_locale'));
         foreach (range(1, 3) as $index) {
             DB::table('gudang')->insert([
                 'lokasigudang' => $faker->city,

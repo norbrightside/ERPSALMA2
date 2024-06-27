@@ -10,7 +10,7 @@ class SupplierController extends Controller
 {
     public function create(): View
     {
-        return view('supllier.create');
+        return view('supplier.create');
     }
 
     public function store(Request $request)

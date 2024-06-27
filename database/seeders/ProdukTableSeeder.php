@@ -10,7 +10,7 @@ class ProdukTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $faker = Faker::create(config('app.faker_locale'));
 
         foreach (range(1, 5) as $index) {
             DB::table('produk')->insert([

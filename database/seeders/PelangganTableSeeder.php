@@ -11,7 +11,7 @@ class PelangganTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $faker = Faker::create(config('app.faker_locale'));
 
         foreach (range(1, 100) as $index) {
             Pelanggan::create([
