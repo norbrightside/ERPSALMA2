@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gudang', function (Blueprint $table) {
-            $table->string('idgudang')->primary();
+            $table->id('idgudang')->primary();
             $table->string('lokasigudang');
-            $table->enum('status', ['Dalam Pengiriman', 'Diterima'])->default('Dalam Pengiriman');
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });

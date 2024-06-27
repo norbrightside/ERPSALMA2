@@ -19,14 +19,7 @@ class gudang extends Model
         'created_at',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($Inventory) {
-            $Inventory->idgudang = 'Pdg-11' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
-        });
-    }
+   
 
         public function inventory()
     {

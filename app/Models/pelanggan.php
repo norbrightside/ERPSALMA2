@@ -20,14 +20,7 @@ class pelanggan extends Model
         'created_at',
         // tambahkan kolom lain yang relevan
     ];
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($pelanggan) {
-            $pelanggan->idpelanggan = 'plg-12' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
-        });
-    }
+   
 
     public function penjualan()
     {

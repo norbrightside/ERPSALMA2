@@ -19,14 +19,7 @@ class Produk extends Model
         'created_at',
         // tambahkan kolom lain yang relevan
     ];
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($produk) {
-            $produk->idbarang = 'Prdk-111' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
-        });
-    }
+    
 
     public function produksi()
     {

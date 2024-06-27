@@ -9,6 +9,8 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Barang</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qtty Order</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">harga Pembelian</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            
         </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
@@ -19,7 +21,8 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->supplier->namasupplier}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->produk->namabarang}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->qttyorder, 0, ',', '.') }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->hargapembelian, 0, ',', '.') }}</td>    
+            <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->hargapembelian, 0, ',', '.') }}</td>   
+            <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->status}}</td>
         </tr>
         @endforeach
     </tbody>

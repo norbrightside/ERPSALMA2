@@ -11,12 +11,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 class ProduksiController extends Controller
 {
     public function create(): View
     {
         $produk = Produk::all();
-        $jadwalProduksi = Produksi::with('produk')->paginate(15); // Paginate the results
+        $jadwalProduksi = Produksi::with('produk')->orderBy(DB::raw('CASE WHEN status = "Preproduksi" THEN 1 ELSE 2 END'))
+        ->latest()
+        ->paginate(15);
         return view('produksi.jadwalproduksi', compact('jadwalProduksi', 'produk'));
         
     }

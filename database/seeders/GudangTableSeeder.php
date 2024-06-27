@@ -16,9 +16,7 @@ class GudangTableSeeder extends Seeder
         $faker = Faker::create();
         foreach (range(1, 3) as $index) {
             DB::table('gudang')->insert([
-                'idgudang' => 'prdksi-421'. $index,
                 'lokasigudang' => $faker->city,
-                'status' => $faker->randomElement(['Dalam Pengiriman', 'Diterima']),
             ]);
         //
     }

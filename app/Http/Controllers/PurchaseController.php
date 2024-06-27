@@ -12,14 +12,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\DB;
 class PurchaseController extends Controller
 {
     public function create(): View
     {
         $supplier = supplier::all();
         $produk = Produk::all();
-        $viewpurchaselist = pembelian::with('produk','supplier')->paginate(15); // Ambil semua jadwal dari database
+        $viewpurchaselist = pembelian::with('produk','supplier')->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
+        ->latest()
+        ->paginate(15);
         return view('Purchase.datapembelian', compact('viewpurchaselist','supplier','produk'));
         
     }

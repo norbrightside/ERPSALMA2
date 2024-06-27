@@ -7,15 +7,17 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Masuk</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Barang</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stok</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
         @foreach ($viewinventory as $inventory)
         <tr>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->lokasigudang}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->gudang->lokasigudang}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->tanggal}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->produk->namabarang}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($inventory->qtty, 0, ',', '.') }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->status}}</td>
             </tr>
         @endforeach
     </tbody>

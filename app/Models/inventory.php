@@ -17,6 +17,7 @@ class inventory extends Model
         'tanggal',
         'idbarang',
         'qtty',	
+        'status',
         'updated_at',
         'created_at',
     ];

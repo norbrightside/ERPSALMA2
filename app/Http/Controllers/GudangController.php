@@ -6,13 +6,16 @@ use App\Models\Inventory;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\DB;
 class GudangController extends Controller
 {
+ 
     public function create(): View
     {
         $produk = Produk::all(); // Ambil semua data produk
-        $viewinventory = Inventory::with('produk')->paginate(15); // Ambil semua data inventory dengan relasi produk
+        $viewinventory = Inventory::with('produk')->orderBy('idbarang', 'desc')
+        ->latest()
+        ->paginate(15);
         return view('Gudang.inventory', compact('viewinventory', 'produk'));
     }
 
@@ -49,4 +52,6 @@ class GudangController extends Controller
 
         return redirect()->back()->with('success', 'Produk berhasil ditambahkan');
     }
+    
+
 }

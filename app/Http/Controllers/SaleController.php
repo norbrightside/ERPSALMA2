@@ -7,14 +7,16 @@ use App\Models\Pelanggan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\DB;
 class SaleController extends Controller
 {
     public function create(): View
     {
         $pelanggan = Pelanggan::all();
         $produk = Produk::all();
-        $viewsales = Penjualan::with('produk', 'pelanggan')->paginate(15); // Ambil semua jadwal dari database
+        $viewsales = Penjualan::with('produk', 'pelanggan')->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+        ->latest()
+        ->paginate(15);
         return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
     }
 

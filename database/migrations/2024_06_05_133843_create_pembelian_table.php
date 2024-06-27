@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembelian', function (Blueprint $table) {
-            $table->string('idorder')->primary();
+            $table->id('idorder')->primary();
             $table->date('tanggalorder');
-            $table->string('idsupplier');
-            $table->string('idbarang');
-            $table->string('idgudang');
+            $table->unsignedBigInteger('idsupplier');
+            $table->unsignedBigInteger('idbarang');
+            $table->unsignedBigInteger('idgudang');
             $table->float('qttyorder');
             $table->float('hargapembelian');
-            $table->enum('status',['Order Baru','Dibayar'])->default('Order Baru');
+            $table->enum('status',['Pemesanan Baru','Dibayar', 'Diterima'])->default('Pemesanan Baru');
             $table->foreign('idgudang')->references('idgudang')->on('gudang')->onDelete('cascade');
             $table->foreign('idsupplier')->references('idsupplier')->on('supplier')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');

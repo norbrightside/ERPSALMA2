@@ -17,7 +17,6 @@ class PenjualanTableSeeder extends Seeder
             $pelangganid = DB::table('pelanggan')->pluck('idpelanggan')->toArray();
 
             DB::table('penjualan')->insert([
-                'nofak' => 'slmaa-121' . $index,
                 'tanggalpenjualan' => $faker->date(),
                 'idpelanggan' => $faker->randomElement($pelangganid),
                 'idbarang' => $faker->randomElement($produkIds),

@@ -15,12 +15,10 @@ class PelangganTableSeeder extends Seeder
 
         foreach (range(1, 100) as $index) {
             Pelanggan::create([
-                'idpelanggan' => 'plg-12' . $index,
                 'namapelanggan' => $faker->name,
                 'alamat' => $faker->address,
                 'kontak' => $faker->phoneNumber,
-                'created_at' => now(),
-                'updated_at' => now(),
+                
             ]);
         }
     }

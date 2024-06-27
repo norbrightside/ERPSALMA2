@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventory', function (Blueprint $table) {
             $table->id()->primary();
-            $table->string('idgudang');
+            $table->unsignedBigInteger('idgudang');
             $table->date('tanggal');
-            $table->string('idbarang');
+            $table->unsignedBigInteger('idbarang');
+            $table->enum('status', ['Dalam Pengiriman', 'Diterima'])->default('Dalam Pengiriman');
             $table->float('qtty');
             $table->timestamps(); // Ini akan membuat created_at dan updated_at sebagai timestamp
 

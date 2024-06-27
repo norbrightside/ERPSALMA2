@@ -22,14 +22,7 @@ class pembelian extends Model
         'updated_at',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($pembelian) {
-            $pembelian->idorder = 'odr-111' . (static::count() + 1); // Menggunakan jumlah data untuk menentukan ID berikutnya
-        });
-    }
+    
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'idbarang', 'idbarang'); // Relasi dengan model Produk

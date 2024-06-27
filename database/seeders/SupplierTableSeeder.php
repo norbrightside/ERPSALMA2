@@ -14,7 +14,6 @@ class SupplierTableSeeder extends Seeder
 
         foreach (range(1, 7) as $index) {
             DB::table('supplier')->insert([
-                'idsupplier' => 'splly-11'. $index,
                 'namasupplier' => $faker->name,
                 'alamat' => $faker->address,
                 'kontak' => $faker->phoneNumber,

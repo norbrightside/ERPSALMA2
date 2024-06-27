@@ -16,12 +16,11 @@ class PembelianTableSeeder extends Seeder
         $supplierIds = DB::table('supplier')->pluck('idsupplier')->toArray();
         foreach (range(1, 100) as $index) {
             DB::table('pembelian')->insert([
-                'idorder' => 'odr-111' . $index,
                 'tanggalorder' => $faker->date(),
                 'idsupplier' => $faker->randomElement($supplierIds),
                 'idgudang' => $faker->randomElement($gudangIds),
                 'idbarang' => $faker->randomElement($produkIds),
-                'status' => $faker->randomElement(['Order Baru','Dibayar']),
+                'status' => $faker->randomElement(['Pemesanan Baru','Dibayar', 'Diterima']),
                 'qttyorder' => $faker->numberBetween(10, 5000),
                 'hargapembelian' => $faker->numberBetween(1000000, 500000000),
             ]);
