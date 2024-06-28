@@ -8,7 +8,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class SaleController extends Controller
 {
     public function create(): View
@@ -57,5 +57,30 @@ class SaleController extends Controller
             'success' => 'Penjualan berhasil ditambahkan',
             'nilaiTransaksi' => $nilaiTransaksi, // Melewatkan nilai transaksi ke view jika diperlukan
         ]);
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        $sale = penjualan::findOrFail($id);
+        $sale->status = $request->input('status');
+        $sale->updated_at = Carbon::now();
+        $sale->save();
+
+        if ($sale->status == 'lunas') {
+            // Pilih random idgudang dari tabel gudang
+            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
+
+            // Tambahkan data baru ke tabel inventory
+            DB::table('inventory')->insert([
+                'idgudang' => $randomGudang->idgudang,
+                'tanggal' => Carbon::now()->toDateString(),
+                'idbarang' => $sale->idbarang,
+                'qtty' => $sale->qttypenjualan,
+                'updated_at' => Carbon::now(),
+                'status' => 'antrian keluar',
+
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui');
     }
 }

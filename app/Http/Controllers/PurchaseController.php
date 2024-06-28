@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class PurchaseController extends Controller
 {
     public function create(): View
@@ -35,7 +36,6 @@ class PurchaseController extends Controller
             'tanggalorder' => ['required', 'date'],
             'idsupplier' => ['required', 'exists:supplier,idsupplier'],
             'idbarang' => ['required', 'exists:produk,idbarang'],
-            'idgudang' => ['required', 'exists:gudang,idgudang'],
             'qttyorder' => ['required', 'numeric', 'min:0'],
             'hargapembelian' => ['required', 'numeric', 'min:0'],
         ]);
@@ -44,7 +44,6 @@ class PurchaseController extends Controller
             'tanggalorder' => $request->tanggalorder,
             'idsupplier' => $request->idsupplier,
             'idbarang' => $request->idbarang,
-            'idgudang' => $request->idgudang,
             'qttyorder' => $request->qttyorder,
             'hargapembelian' => $request->hargapembelian,
             'totalbayar' => $totalBayar,
@@ -54,4 +53,28 @@ class PurchaseController extends Controller
         return redirect()->back()->with('success', 'Pembelian berhasil ditambahkan');
         }
     //
+    public function updateStatus(Request $request, $id)
+    {
+        $purchase = pembelian::findOrFail($id);
+        $purchase->status = $request->input('status');
+        $purchase->updated_at = Carbon::now();
+        $purchase->save();
+
+        if ($purchase->status == 'dibayar' || $purchase->status == 'diterima') {
+            // Pilih random idgudang dari tabel gudang
+            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
+
+            // Tambahkan data baru ke tabel inventory
+            DB::table('inventory')->insert([
+                'idgudang' => $randomGudang->idgudang,
+                'tanggal' => Carbon::now()->toDateString(),
+                'idbarang' => $purchase->idbarang,
+                'qtty' => $purchase->qttyorder,
+                'updated_at' => Carbon::now(),
+
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui');
+    }
 }

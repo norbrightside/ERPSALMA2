@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idbarang');
             $table->float('nilaitransaksi');
             $table->float('qttypenjualan');
-            $table->enum('status', ['Order Baru', 'Lunas','Pengiriman', 'Selesai'])->default('Order Baru');
+            $table->enum('status', ['Order Baru', 'Lunas'])->default('Order Baru');
             $table->foreign('idpelanggan')->references('idpelanggan')->on('pelanggan')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
             $table->timestamp('updated_at')->nullable();;

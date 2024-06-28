@@ -7,7 +7,7 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Update</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Barang</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stok</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qtty</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
@@ -18,7 +18,19 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->produk->namabarang}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->status}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($inventory->qtty, 0, ',', '.') }}</td>
-            </tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+            <form action="{{ route('inventory.updateStatus', $inventory->id) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <select name="status" onchange="this.form.submit()">
+                    <option  >Status</option>
+                    <option value="diterima" {{ $inventory->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                    <option value="dikirim" {{ $inventory->status == 'dikirim' ? 'selected' : '' }}>Dikirim</option>
+                    <!-- Tambahkan status lain jika diperlukan -->
+                </select>
+            <td>
+            </form>    
+        </tr>
         @endforeach
     </tbody>
 </table>

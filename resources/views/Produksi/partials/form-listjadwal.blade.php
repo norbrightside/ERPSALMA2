@@ -18,6 +18,18 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->produk->namabarang}}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($jadwal->qttyproduksi, 0, ',', '.') }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->status}}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+                <form action="{{ route('produksi.updateStatus', $jadwal->idproduksi) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <select name="status" onchange="this.form.submit()">
+                        <option value="Preproduksi" {{ $jadwal->status == 'Preproduksi' ? 'selected' : '' }}>Preproduksi</option>
+                        <option value="produksi" {{ $jadwal->status == 'Produksi' ? 'selected' : '' }}>Produksi</option>
+                        <option value="Selesai"  {{ $jadwal->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                        <!-- Tambahkan status lain jika diperlukan -->
+                    </select>
+                </form>
+            </td>
             </tr>
         @endforeach
     </tbody>

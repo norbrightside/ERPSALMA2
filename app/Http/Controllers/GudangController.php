@@ -7,21 +7,25 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class GudangController extends Controller
 {
  
     public function create(): View
-    {   $stok = DB::table('gudang')
+    {  
+        $stok = DB::table('gudang')
         ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
         ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
         ->select('gudang.lokasigudang', 'produk.namabarang', DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) as total_qtty'))
         ->groupBy('produk.namabarang', 'gudang.lokasigudang')
-        ->orderBy('produk.namabarang', 'desc')
+        ->orderBy('gudang.lokasigudang', 'asc')
         ->paginate(15);
         $produk = Produk::all(); // Ambil semua data produk
-        $viewinventory = Inventory::with('produk')->orderBy('idbarang', 'desc')
+        $viewinventory = Inventory::with('produk')->orderBy('updated_at', 'desc')
         ->latest()
         ->paginate(15);
+        
+        
         return view('Gudang.inventory', compact('viewinventory', 'produk','stok'));
     }
 
@@ -58,6 +62,14 @@ class GudangController extends Controller
 
         return redirect()->back()->with('success', 'Produk berhasil ditambahkan');
     }
-    
+    public function updateStatus(Request $request, $id)
+    {
+        $inventory = Inventory::findOrFail($id);
+        $inventory->status = $request->input('status');
+        $inventory->updated_at = Carbon::now();
+        $inventory->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui');
+    }
 
 }

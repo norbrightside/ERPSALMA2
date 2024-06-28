@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class ProduksiController extends Controller
 {
     public function create(): View
@@ -42,4 +43,28 @@ class ProduksiController extends Controller
         return redirect()->back()->with('success', 'Jadwal Produksi berhasil ditambahkan');
     }
     //
+    public function updateStatus(Request $request, $id)
+    {
+        $produksi = produksi::findOrFail($id);
+        $produksi->status = $request->input('status');
+        $produksi->updated_at = Carbon::now();
+        $produksi->save();
+
+        if ($produksi->status == 'Selesai') {
+            // Pilih random idgudang dari tabel gudang
+            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
+
+            // Tambahkan data baru ke tabel inventory
+            DB::table('inventory')->insert([
+                'idgudang' => $randomGudang->idgudang,
+                'tanggal' => Carbon::now()->toDateString(),
+                'idbarang' => $produksi->idbarang,
+                'qtty' => $produksi->qttyproduksi,
+                'updated_at' => Carbon::now(),
+
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui');
+    }
 }

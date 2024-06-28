@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idgudang');
             $table->date('tanggal');
             $table->unsignedBigInteger('idbarang');
-            $table->enum('status', ['Dalam Pengiriman', 'Diterima'])->default('Dalam Pengiriman');
+            $table->enum('status', ['Antrian Masuk', 'Diterima', 'Antrian Keluar', 'Dikirim'])->default('Antrian Masuk');
             $table->float('qtty');
             $table->timestamps(); // Ini akan membuat created_at dan updated_at sebagai timestamp
 

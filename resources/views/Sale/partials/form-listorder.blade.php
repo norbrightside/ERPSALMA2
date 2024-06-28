@@ -28,6 +28,17 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sales->nilaitransaksi, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sales->qttypenjualan, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $sales->status }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <form action="{{ route('sales.updateStatus', $sales->nofak) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <select name="status" onchange="this.form.submit()">
+                                <option  >Status</option>
+                                <option value="lunas" {{ $sales->status == 'lunas' ? 'selected' : '' }}>Lunas</option>
+                                <!-- Tambahkan status lain jika diperlukan -->
+                            </select>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
