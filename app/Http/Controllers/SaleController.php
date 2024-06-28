@@ -11,21 +11,31 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class SaleController extends Controller
 {
-    public function create(): View
-    {
-        $pelanggan = Pelanggan::all();
-        $produk = Produk::all();
-        $viewsales = Penjualan::with('produk', 'pelanggan')
-            ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
-            ->latest()
-            ->paginate(15);
-        $laporan = Penjualan::with('produk','Pelanggan')
-        ->orderBy(DB::raw('CASE WHEN status = "Selesai" THEN 1 ELSE 2 END'))
-            ->latest()
-            ->paginate(15);
+    public function create(Request $request): View
+{
+    $pelanggan = Pelanggan::all();
+    $produk = Produk::all();
+    $viewsales = Penjualan::with('produk', 'pelanggan')
+        ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+        ->latest()
+        ->paginate(15);
 
-        return view('Sale.order', compact('viewsales', 'pelanggan', 'produk','laporan'));
+    // Ambil data penjualan berdasarkan bulan yang dipilih
+    $bulan = $request->input('bulan');
+    $laporan = Penjualan::query();
+
+    if ($bulan) {
+        $laporan->whereMonth('tanggalpenjualan', $bulan);
     }
+
+    $laporan = $laporan->with('produk')
+        ->where('status', 'Lunas')
+        ->orderBy('tanggalpenjualan', 'desc')
+        ->paginate(15);
+
+    return view('Sale.order', compact('viewsales', 'pelanggan', 'produk', 'laporan'));
+}
+
 
     public function store(Request $request)
     {

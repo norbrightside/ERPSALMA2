@@ -19,7 +19,7 @@ class InventoryTableSeeder extends Seeder
             DB::table('inventory')->insert([
                 'idgudang' => $faker->randomElement($gudangIds),
                 'tanggal' => $faker->date(),
-                'status' => $faker->randomElement(['Antrian Masuk','Dalam Pengiriman', 'Diterima']),
+                'status' => $faker->randomElement(['Antrian Masuk', 'Diterima', 'Antrian Keluar', 'Dikirim']),
                 'idbarang' => $faker->randomElement($produkIds),
                 'qtty' => $faker->numberBetween(50, 500),
             ]);

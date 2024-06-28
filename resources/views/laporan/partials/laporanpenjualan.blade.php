@@ -1,6 +1,26 @@
 
-<h3 class="text-lg font-semibold mb-4">Daftar Penjualan</h3>
-
+<h3 class="text-lg font-semibold mb-4">Laporan Penjualan</h3>
+<form action="{{ route('viewsales') }}" method="GET">
+    <label for="bulan">Pilih Bulan:</label>
+    <select name="bulan" id="bulan">
+        <option value="">-- Pilih Bulan --</option>
+        <option value="01">Januari</option>
+        <option value="02">Februari</option>
+        <option value="03">Maret</option>
+        <option value="04">April</option>
+        <option value="05">Mei</option>
+        <option value="06">Juni</option>
+        <option value="07">Juli</option>
+        <option value="08">Agustus</option>
+        <option value="09">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">November</option>
+        <option value="12">Desember</option>
+    </select>
+        <!-- Tambahkan opsi bulan lainnya sesuai kebutuhan -->
+    </select>
+    <button type="submit">Filter</button>
+</form>
 
 <!-- Table to display sales data -->
 
@@ -31,10 +51,23 @@
             </tr>
             @endforeach
         </tbody>
+        @if ($laporan->total() > 0)
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Penjualan</td>
+                    <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        {{ number_format($laporan->sum('nilaitransaksi'), 0, ',', '.') }}
+                    </td>
+                    <td colspan="6"></td>
+                </tr>
+            </tfoot>
+            @endif
     </table>
 
 
 <!-- Pagination Links -->
-<div class="bg-white px-4 py-3 sm:px-6">
-    {{ $viewsales->appends(request()->input())->links() }}
-</div>
+@if ($viewsales->total() > 15)
+    <div class="bg-white px-4 py-3 sm:px-6">
+        {{ $viewsales->appends(request()->input())->links() }}
+    </div>
+@endif

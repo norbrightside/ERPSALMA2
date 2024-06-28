@@ -11,23 +11,42 @@ use Carbon\Carbon;
 class GudangController extends Controller
 {
  
-    public function create(): View
-    {  
+    public function create(Request $request): View
+    {
         $stok = DB::table('gudang')
-        ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
-        ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
-        ->select('gudang.lokasigudang', 'produk.namabarang', DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) as total_qtty'))
-        ->groupBy('produk.namabarang', 'gudang.lokasigudang')
-        ->orderBy('gudang.lokasigudang', 'asc')
-        ->paginate(15);
+            ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
+            ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
+            ->select('gudang.lokasigudang', 'produk.namabarang', DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) as total_qtty'))
+            ->groupBy('produk.namabarang', 'gudang.lokasigudang')
+            ->orderBy('gudang.lokasigudang', 'asc')
+            ->get();
+    
         $produk = Produk::all(); // Ambil semua data produk
-        $viewinventory = Inventory::with('produk')->orderBy('updated_at', 'desc')
-        ->latest()
-        ->paginate(15);
-        
-        
-        return view('Gudang.inventory', compact('viewinventory', 'produk','stok'));
+    
+        $query = Inventory::with('produk')->orderBy('updated_at', 'desc');
+    
+        // Apply filters if present
+        if ($request->filled('lokasigudang')) {
+            $query->whereHas('gudang', function ($query) use ($request) {
+                $query->where('lokasigudang', $request->lokasigudang);
+            });
+        }
+    
+        if ($request->filled('namabarang')) {
+            $query->whereHas('produk', function ($query) use ($request) {
+                $query->where('namabarang', $request->namabarang);
+            });
+        }
+    
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+    
+        $viewinventory = $query->paginate(15)->withQueryString();
+    
+        return view('Gudang.inventory', compact('viewinventory', 'produk', 'stok'));
     }
+    
 
     public function store(Request $request)
     {

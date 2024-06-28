@@ -22,7 +22,7 @@ class PenjualanTableSeeder extends Seeder
                 'idbarang' => $faker->randomElement($produkIds),
                 'nilaitransaksi' => $faker->numberBetween(1000000, 500000000),
                 'qttypenjualan' => $faker->numberBetween(100, 5000),
-                'status' => $faker->randomElement(['Order Baru', 'Lunas','Pengiriman', 'Selesai']),
+                'status' => $faker->randomElement(['Order Baru', 'Lunas']),
             ]);
         }
     }
