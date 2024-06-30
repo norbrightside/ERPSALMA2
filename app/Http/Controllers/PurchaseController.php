@@ -35,6 +35,7 @@ class PurchaseController extends Controller
         $request->validate([
             'tanggalorder' => ['required', 'date'],
             'idsupplier' => ['required', 'exists:supplier,idsupplier'],
+            'idgudang' => ['required', 'exists:gudang,idgudang'],
             'idbarang' => ['required', 'exists:produk,idbarang'],
             'qttyorder' => ['required', 'numeric', 'min:0'],
             'hargapembelian' => ['required', 'numeric', 'min:0'],
@@ -44,15 +45,24 @@ class PurchaseController extends Controller
             'tanggalorder' => $request->tanggalorder,
             'idsupplier' => $request->idsupplier,
             'idbarang' => $request->idbarang,
+            'idgudang' => $request->idgudang,
             'qttyorder' => $request->qttyorder,
             'hargapembelian' => $request->hargapembelian,
             'totalbayar' => $totalBayar,
             
         ]);
         
-        return redirect()->back()->with('success', 'Pembelian berhasil ditambahkan');
+        return redirect()->route('viewpurchaselist');
         }
     //
+    public function showBelipadiForm()
+    {
+        $supplier = Supplier::all();
+        $gudang = Gudang::all();
+        $produk = Produk::all();
+
+        return view('Purchase.belipadi', compact('supplier', 'gudang', 'produk'));
+    }
     public function updateStatus(Request $request, $id)
     {
         $purchase = pembelian::findOrFail($id);
@@ -62,11 +72,10 @@ class PurchaseController extends Controller
 
         if ($purchase->status == 'dibayar' || $purchase->status == 'diterima') {
             // Pilih random idgudang dari tabel gudang
-            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
-
+           
             // Tambahkan data baru ke tabel inventory
             DB::table('inventory')->insert([
-                'idgudang' => $randomGudang->idgudang,
+                'idgudang' => $purchase->idgudang,
                 'tanggal' => Carbon::now()->toDateString(),
                 'idbarang' => $purchase->idbarang,
                 'qtty' => $purchase->qttyorder,
