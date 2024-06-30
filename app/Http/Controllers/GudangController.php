@@ -16,8 +16,9 @@ class GudangController extends Controller
         $stok = DB::table('gudang')
             ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
             ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
-            ->select('gudang.lokasigudang', 'produk.namabarang', DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) as total_qtty'))
-            ->groupBy('produk.namabarang', 'gudang.lokasigudang')
+            ->select('gudang.lokasigudang', 'produk.namabarang',
+             DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) - 
+                      SUM(CASE WHEN inventory.status = "dikirim" THEN inventory.qtty ELSE 0 END) as total_qtty'))->groupBy('produk.namabarang', 'gudang.lokasigudang')
             ->orderBy('gudang.lokasigudang', 'asc')
             ->get();
     

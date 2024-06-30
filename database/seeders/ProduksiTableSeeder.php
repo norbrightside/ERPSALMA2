@@ -14,7 +14,7 @@ class ProduksiTableSeeder extends Seeder
         $produkIds = DB::table('produk')->pluck('idbarang')->toArray();
         foreach (range(1, 100) as $index) {
             DB::table('produksi')->insert([
-                'tanggalproduksi' => $faker->date(),
+                'tanggalproduksi' => $faker->dateTimeBetween('2020-01-01', '2024-12-31'),
                 'biayaproduksi' => $faker->numberBetween(100000, 10000000),
                 'idbarang' => $faker->randomElement($produkIds),
                 'qttyproduksi' => $faker->numberBetween(1000, 10000), // Menggunakan nilai numerik

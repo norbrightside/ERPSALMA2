@@ -17,31 +17,34 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class PurchaseController extends Controller
 {
-    public function create(): View
+    public function create()
     {
-
-        $gudang = gudang::all();
-        $supplier = supplier::all();
+        $gudang = Gudang::all();
+        $supplier = Supplier::all();
         $produk = Produk::all();
-        $viewpurchaselist = pembelian::with('produk','supplier')->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
-        ->latest()
-        ->paginate(15);
-        return view('Purchase.datapembelian', compact('viewpurchaselist','supplier','produk', 'gudang'));
-        
+        $viewpurchaselist = Pembelian::with('produk', 'supplier')
+            ->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
+            ->latest()
+            ->paginate(15);
+
+        return view('Purchase.datapembelian', compact('viewpurchaselist', 'supplier', 'produk', 'gudang'));
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'tanggalorder' => ['required', 'date'],
-            'idsupplier' => ['required', 'exists:supplier,idsupplier'],
-            'idgudang' => ['required', 'exists:gudang,idgudang'],
-            'idbarang' => ['required', 'exists:produk,idbarang'],
-            'qttyorder' => ['required', 'numeric', 'min:0'],
-            'hargapembelian' => ['required', 'numeric', 'min:0'],
-        ]);
+{
+    $request->validate([
+        'tanggalorder' => ['required', 'date'],
+        'idsupplier' => ['required', 'exists:supplier,idsupplier'],
+        'idgudang' => ['required', 'exists:gudang,idgudang'],
+        'idbarang' => ['required', 'exists:produk,idbarang'],
+        'qttyorder' => ['required', 'numeric', 'min:0'],
+        'hargapembelian' => ['required', 'numeric', 'min:0'],
+    ]);
+
+    try {
+        // Proses menyimpan data pembelian
         $totalBayar = $request->qttyorder * $request->hargapembelian;
-        pembelian::create([
+        $pembelian = Pembelian::create([
             'tanggalorder' => $request->tanggalorder,
             'idsupplier' => $request->idsupplier,
             'idbarang' => $request->idbarang,
@@ -49,11 +52,24 @@ class PurchaseController extends Controller
             'qttyorder' => $request->qttyorder,
             'hargapembelian' => $request->hargapembelian,
             'totalbayar' => $totalBayar,
-            
         ]);
-        
-        return redirect()->route('viewpurchaselist');
-        }
+
+        // Redirect ke halaman form cetak faktur dengan ID pembelian (idorder)
+        return redirect()->route('formcetakfaktur', ['id' => $pembelian->idorder]);
+    } catch (\Exception $e) {
+        // Handle error saat penyimpanan data
+        return back()->withInput()->withErrors(['error' => 'Gagal menyimpan data pembelian. Silakan coba lagi.']);
+    }
+}
+
+    public function showCetakFaktur($id)
+    {
+        // Ambil data pembelian berdasarkan ID
+        $pembelian = Pembelian::findOrFail($id);
+
+        // Tampilkan view form cetak faktur dan kirim data pembelian ke view
+        return view('Purchase.formcetakfaktur', compact('pembelian'));
+    }
     //
     public function showBelipadiForm()
     {
@@ -86,4 +102,13 @@ class PurchaseController extends Controller
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui');
     }
+
+public function cetakFaktur($id)
+{
+    // Lakukan proses pencetakan faktur jika diperlukan
+
+    // Redirect kembali ke halaman Sale.order
+    return redirect()->route('viewpurchaselist');
+}
+
 }

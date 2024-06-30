@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
             GudangTableSeeder::class,
             ProdukTableSeeder::class,
             SupplierTableSeeder::class,
-            PembelianTableSeeder::class,
-            ProduksiTableSeeder::class,
+            //PembelianTableSeeder::class,
+            //ProduksiTableSeeder::class,
             PelangganTableSeeder::class,
-            PenjualanTableSeeder::class,
-            InventoryTableSeeder::class,
+            //PenjualanTableSeeder::class,
+            //InventoryTableSeeder::class,
         ]);
        
         User::factory()->create([

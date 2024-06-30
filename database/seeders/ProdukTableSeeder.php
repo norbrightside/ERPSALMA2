@@ -10,13 +10,15 @@ class ProdukTableSeeder extends Seeder
 {
     public function run()
     {
+        $staticValues = ['Padi Pm', 'Junjuang', 'Anak Daro', 'Pb', 'Kuriak', 'Kuniang', 'RK', 'Bujang Marantau', 'Beras', 'Sekam', 'Dedak', 'Solar'];
         $faker = Faker::create(config('app.faker_locale'));
 
-        foreach (range(1, 5) as $index) {
+        foreach ($staticValues as $value) {
             DB::table('produk')->insert([
-                'namabarang' => $faker->word,
+                'namabarang' => $value,
                 'harga' => $faker->numberBetween(500000, 5000000),
             ]);
         }
     }
+    
 }

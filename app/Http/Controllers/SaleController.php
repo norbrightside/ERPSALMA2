@@ -35,6 +35,13 @@ class SaleController extends Controller
 
     return view('Sale.order', compact('viewsales', 'pelanggan', 'produk', 'laporan'));
 }
+public function cetakFaktur($id)
+{
+    // Lakukan proses pencetakan faktur jika diperlukan
+
+    // Redirect kembali ke halaman Sale.order
+    return redirect()->route('Sale.order');
+}
 
 
     public function store(Request $request)
@@ -77,8 +84,15 @@ class SaleController extends Controller
 
         if ($sale->status == 'lunas') {
             // Pilih random idgudang dari tabel gudang
-            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
-
+            $randomGudang = DB::table('gudang')
+            ->whereExists(function ($query) use ($sale) {
+                $query->select(DB::raw(1))
+                      ->from('inventory')
+                      ->whereRaw('inventory.idgudang = gudang.idgudang')
+                      ->where('inventory.qtty', '>', 0);
+                    })
+                    ->inRandomOrder()
+                    ->first();   
             // Tambahkan data baru ke tabel inventory
             DB::table('inventory')->insert([
                 'idgudang' => $randomGudang->idgudang,

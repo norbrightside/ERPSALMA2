@@ -17,7 +17,7 @@ class PenjualanTableSeeder extends Seeder
             $pelangganid = DB::table('pelanggan')->pluck('idpelanggan')->toArray();
 
             DB::table('penjualan')->insert([
-                'tanggalpenjualan' => $faker->date(),
+                'tanggalpenjualan' => $faker->dateTimeBetween('2020-01-01', '2024-12-31'),
                 'idpelanggan' => $faker->randomElement($pelangganid),
                 'idbarang' => $faker->randomElement($produkIds),
                 'nilaitransaksi' => $faker->numberBetween(1000000, 500000000),

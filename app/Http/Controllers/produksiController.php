@@ -44,27 +44,71 @@ class ProduksiController extends Controller
     }
     //
     public function updateStatus(Request $request, $id)
-    {
-        $produksi = produksi::findOrFail($id);
-        $produksi->status = $request->input('status');
-        $produksi->updated_at = Carbon::now();
-        $produksi->save();
+{
+    $produksi = produksi::findOrFail($id);
+    $produksi->status = $request->input('status');
+    $produksi->updated_at = Carbon::now();
+    $produksi->save();
 
-        if ($produksi->status == 'Selesai') {
-            // Pilih random idgudang dari tabel gudang
-            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
+    if ($produksi->status == 'produksi') {
+        // Pilih random idgudang dari tabel gudang
+        $randomGudang = DB::table('gudang')->inRandomOrder()->first();
+        $randomGudang2 = DB::table('gudang')
+        ->whereExists(function ($query) use ($produksi) {
+            $query->select(DB::raw(1))
+                  ->from('inventory')
+                  ->whereRaw('inventory.idgudang = gudang.idgudang')
+                  ->where('inventory.qtty', '>', 0);
+        })
+        ->inRandomOrder()
+        ->first();
+        // Insert data untuk produk utama
+        DB::table('inventory')->insert([
+            'idgudang' => $randomGudang2->idgudang,
+            'tanggal' => Carbon::now()->toDateString(),
+            'idbarang' => $produksi->idbarang,
+            'qtty' => $produksi->qttyproduksi,
+            'status' => 'antrian keluar',
+            'updated_at' => Carbon::now(),
+        ]);
 
-            // Tambahkan data baru ke tabel inventory
-            DB::table('inventory')->insert([
-                'idgudang' => $randomGudang->idgudang,
-                'tanggal' => Carbon::now()->toDateString(),
-                'idbarang' => $produksi->idbarang,
-                'qtty' => $produksi->qttyproduksi,
-                'updated_at' => Carbon::now(),
+        // Calculate quantities for products 03 and 04
+        $beras = $produksi->qttyproduksi * 0.55;
+        $dedak = $beras * 0.336;
+        $sekam = $beras * 0.48;
 
-            ]);
-        }
+        // Insert data untuk produk 03
+        DB::table('inventory')->insert([
+            'idgudang' => $randomGudang->idgudang,
+            'tanggal' => Carbon::now()->toDateString(),
+            'idbarang' => '09',  // ID untuk produk 09
+            'qtty' => $beras,
+            'status' => 'antrian Masuk',
+            'updated_at' => Carbon::now(),
+        ]);
 
-        return redirect()->back()->with('success', 'Status berhasil diperbarui');
+        // Insert data untuk produk 04 (dari 0.336 * qtty produk 03)
+        DB::table('inventory')->insert([
+            'idgudang' => $randomGudang->idgudang,
+            'tanggal' => Carbon::now()->toDateString(),
+            'idbarang' => '10',  // ID untuk produk 04
+            'qtty' => $sekam,
+            'status' => 'antrian masuk',
+            'updated_at' => Carbon::now(),
+        ]);
+
+        // Insert data tambahan untuk produk 04 (dari 0.48 * qtty produk 03)
+        DB::table('inventory')->insert([
+            'idgudang' => $randomGudang->idgudang,
+            'tanggal' => Carbon::now()->toDateString(),
+            'idbarang' => '11',  // ID untuk produk 04
+            'qtty' => $dedak,
+            'status' => 'antrian masuk',
+            'updated_at' => Carbon::now(),
+        ]);
+        
+    }
+    return redirect()->back()->with('success', 'Status berhasil diperbarui');
+        
     }
 }

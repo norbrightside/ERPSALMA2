@@ -18,7 +18,7 @@ class InventoryTableSeeder extends Seeder
             $gudangIds = DB::table('gudang')->pluck('idgudang')->toArray(); 
             DB::table('inventory')->insert([
                 'idgudang' => $faker->randomElement($gudangIds),
-                'tanggal' => $faker->date(),
+                'tanggal' => $faker->dateTimeBetween('2020-01-01', '2024-12-31'),
                 'status' => $faker->randomElement(['Antrian Masuk', 'Diterima', 'Antrian Keluar', 'Dikirim']),
                 'idbarang' => $faker->randomElement($produkIds),
                 'qtty' => $faker->numberBetween(50, 500),

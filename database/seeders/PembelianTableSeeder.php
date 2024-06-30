@@ -16,7 +16,7 @@ class PembelianTableSeeder extends Seeder
         $supplierIds = DB::table('supplier')->pluck('idsupplier')->toArray();
         foreach (range(1, 100) as $index) {
             DB::table('pembelian')->insert([
-                'tanggalorder' => $faker->date(),
+                'tanggalorder' => $faker->dateTimeBetween('2020-01-01', '2024-12-31'),
                 'idsupplier' => $faker->randomElement($supplierIds),
                 'idgudang' => $faker->randomElement($gudangIds),
                 'idbarang' => $faker->randomElement($produkIds),
