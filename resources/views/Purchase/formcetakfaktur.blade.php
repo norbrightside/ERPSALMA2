@@ -1,52 +1,142 @@
-<!-- resources/views/Purchase/formcetakfaktur.blade.php -->
+    <x-app-layout>
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Cetak Faktur') }}
+            </h2>
+        </x-slot>
+        <div class="py-12 print-area">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <div class="header-container">
+                        <div class="header-right">
+                            <x-application-logo class="logo block h-9 w-auto fill-current text-gray-800" />
+                            <h2 class="salma">SALMA</h2>
+                            <p class="alamat" >Gudang {{ $pembelian->gudang->lokasigudang }}</p>
+                        </div>
+                        <div class="header-left">
+                        <h2 class="idorder">Faktur Pembelian #{{ $pembelian->idorder }}</h2>
+                        <p class="alamat">{{ $pembelian->tanggalorder }}
+                            <br>
+                            {{ $pembelian->supplier->namasupplier }} <br>
+                            {{ $pembelian->supplier->alamat }}
+                            </p>
+                        
+                        </div>
+                        </div>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qty Order</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $pembelian->produk->namabarang }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->qttyorder) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->hargapembelian / $pembelian->qttyorder )}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->hargapembelian) }}</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">Kongsi</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">Angin</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">Mobil</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                    <td colspan="3" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Pembelian</td>
+                        <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ number_format($pembelian->hargapembelian )}}</td>
+                        <td colspan="3"></td>    
+                </tfoot>
+                <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
+            </table>
+            <div class="btn-print">
+                <button onclick="printInvoice()">Cetak Faktur</button>
+            </div>
+        </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Faktur Pembelian</title>
+        <script src="{{ mix('js/app.js') }}"></script>
+        <script>
+            function printInvoice() {
+                window.print();
+            }
+        </script>
+    </div>
+    </div>
+    </div>
+    </div>
+
     <style>
-        /* Tambahkan gaya CSS sesuai kebutuhan */
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            text-align: center;
+           .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 20px;
         }
-        .content p {
-            margin: 5px 0;
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
         }
-        .print-button {
-            margin-top: 20px;
-            text-align: center;
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .logo {
+            margin-left: 0px;
+            margin-bottom: 5px;
+        }
+
+        .salma {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .alamat
+        {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .idorder{
+            font-size: 24px;
+            font-weight: bold;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .print-area, .print-area * {
+                visibility: visible;
+            }
+            .print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .btn-print {
+                display: none;
+            }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Faktur Pembelian</h1>
-        </div>
-        <div class="content">
-            <p px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider>Tanggal Order: {{ $pembelian->tanggalorder }}</p>
-            <p>Supplier: {{ $pembelian->supplier->namasupplier }}</p>
-            <p>Barang: {{ $pembelian->produk->namabarang }}</p>
-            <p>Gudang: {{ $pembelian->gudang->lokasigudang }}</p>
-            <p>Quantity Order: {{ $pembelian->qttyorder }}</p>
-            <p>Harga Pembelian: {{ $pembelian->hargapembelian }}</p>
-            <p>Total Bayar: {{ $pembelian->totalbayar }}</p>
-            <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
-        </div>
-        <div class="print-button">
-            <button onclick="window.print(); setTimeout(() => { window.location.href = '{{ route('viewpurchaselist') }}'; }, 1000);">Cetak Faktur</button>
-        </div>
-    </div>
-</body>
-</html>
+    </x-app-layout>
