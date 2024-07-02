@@ -9,6 +9,7 @@ use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Middleware\Sale;
 use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
@@ -50,6 +51,8 @@ Route::middleware('Sale')->group(function() {
     Route::get('/pelanggan/create', [PelangganController::class, 'create'])->name('pelanggan.create');
     Route::post('/pelanggan/store', [PelangganController::class, 'store'])->name('pelanggan.store');
     Route::patch('/sales/{id}/updateStatus', [SaleController::class, 'updateStatus'])->name('sales.updateStatus');
+    Route::get('/formcetakfakturpenjualan/{id}', [SaleController::class, 'showCetakFaktur'])->name('formcetakfakturpenjualan');
+    Route::post('/cetakfakturpenjualan/{id}', [SaleController::class, 'cetakFaktur'])->name('cetakFaktur');
 });
 Route::middleware('Purchase')->group(function() {
     Route::get('viewpurchaselist', [PurchaseController::class, 'create'])->name('viewpurchaselist');

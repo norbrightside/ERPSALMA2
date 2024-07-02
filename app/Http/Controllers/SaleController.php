@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
@@ -33,47 +34,45 @@ class SaleController extends Controller
         return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
     }
 
-   
-
-    public function cetakFaktur($id)
-    {
-        return redirect()->route('Sale.order');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
             'tanggalpenjualan' => ['required', 'date'],
             'idpelanggan' => ['required', 'exists:pelanggan,idpelanggan'],
             'idbarang' => ['required', 'exists:produk,idbarang'],
+            'harga' => ['required', 'numeric', 'min:0'],
             'qttypenjualan' => ['required', 'numeric', 'min:0'],
         ]);
 
-        $hargaProduk = Produk::findOrFail($request->idbarang)->harga;
-        $nilaiTransaksi = $request->qttypenjualan * $hargaProduk;
+        // Hitung nilai transaksi berdasarkan harga dan qty
+        $nilaitransaksi = $request->harga * $request->qttypenjualan;
 
-        Penjualan::create([
+        $penjualan = Penjualan::create([
             'tanggalpenjualan' => $request->tanggalpenjualan,
             'idpelanggan' => $request->idpelanggan,
             'idbarang' => $request->idbarang,
-            'nilaitransaksi' => $nilaiTransaksi,
+            'nilaitransaksi' => $nilaitransaksi,
             'qttypenjualan' => $request->qttypenjualan,
+            'harga' => $request->harga,
+            'status' => 'Order Baru', // Secara default set status 'Order Baru'
         ]);
 
-        return redirect()->back()->with([
-            'success' => 'Penjualan berhasil ditambahkan',
-            'nilaiTransaksi' => $nilaiTransaksi,
-        ]);
+        // Redirect ke halaman form cetak faktur dengan ID penjualan (nofak)
+        return redirect()->route('formcetakfakturpenjualan', ['id' => $penjualan->nofak]);
     }
 
     public function updateStatus(Request $request, $id)
     {
+        $request->validate([
+            'status' => ['required', 'string', 'in:Order Baru,Lunas,Pengiriman,Selesai'], // Sesuaikan dengan status yang diizinkan
+        ]);
+
         $sale = Penjualan::findOrFail($id);
-        $sale->status = $request->input('status');
+        $sale->status = strtolower($request->input('status')); // Ubah status menjadi lowercase
         $sale->updated_at = Carbon::now();
         $sale->save();
 
-        if ($sale->status == 'lunas') {
+        if ($sale->status == 'Lunas') {
             $randomGudang = DB::table('gudang')
                 ->whereExists(function ($query) use ($sale) {
                     $query->select(DB::raw(1))
@@ -95,5 +94,18 @@ class SaleController extends Controller
         }
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui');
+    }
+
+    public function showCetakFaktur($id)
+    {
+        $sale = Penjualan::findOrFail($id);
+
+        return view('Sale.formcetakfakturpenjualan', compact('sale'));
+    }
+
+    public function cetakFaktur($id)
+    {
+        // Implementasikan logika cetak faktur jika dibutuhkan
+        return redirect()->route('Sale.order');
     }
 }

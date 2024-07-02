@@ -34,7 +34,7 @@
                             @method('PATCH')
                             <select name="status" onchange="this.form.submit()">
                                 <option  >Status</option>
-                                <option value="lunas" {{ $sales->status == 'lunas' ? 'selected' : '' }}>Lunas</option>
+                                <option value="lunas" {{ $sales->status == 'Lunas' ? 'selected' : '' }}>Lunas</option>
                                 <!-- Tambahkan status lain jika diperlukan -->
                             </select>
                         </form>

@@ -12,15 +12,15 @@
                     <div class="header-right">
                         <x-application-logo class="logo block h-9 w-auto fill-current text-gray-800" />
                         <h2 class="salma">SALMA</h2>
-                        <p class="alamat" >Gudang {{ $pembelian->gudang->lokasigudang }}</p>
+                        
                     </div>
                     <div class="header-left">
-                    <h2 class="idorder">Faktur Penjualan #{{ $sales->nofak }}</h2>
-                    <p class="alamat">{{ $sales->tanggalpenjualan  }}
+                    <h2 class="idorder">Faktur Penjualan #{{ $sale->nofak }}</h2>
+                    <p class="alamat">{{ $sale->tanggalpenjualan  }}
                         <br>
-                        {{ $sales->pelanggan->namapelanggan }} <br>
-                        {{ $sales->pelanggan->kontak}} <br>
-                        {{ $sales->pelanggan->alamat}}
+                        {{ $sale->pelanggan->namapelanggan }} <br>
+                        {{ $sale->pelanggan->kontak}} <br>
+                        {{ $sale->pelanggan->alamat}}
                         </p>
                     
                     </div>
@@ -36,34 +36,16 @@
             </thead>
             <tbody>
                 <tr>
-                <td class="px-6 py-4 whitespace-nowrap">{{ $pembelian->produk->namabarang }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->qttyorder) }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->harga )}}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->qttyorder*$pembelian->harga) }}</td>
-            </tr>
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">Kongsi</td>
-                <td class="px-6 py-4 whitespace-nowrap">-</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->kongsi)}}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->kongsi)}}</td>
-            </tr>
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">Angin</td>
-                <td class="px-6 py-4 whitespace-nowrap">-</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->angin)}}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->angin)}}</td>
-            </tr>
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap">Mobil</td>
-                <td class="px-6 py-4 whitespace-nowrap">-</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->mobil)}}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->mobil)}}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ $sale->produk->namabarang }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sale->qttypenjualan) }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sale->harga )}}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sale->nilaitransaksi) }}</td>
             </tr>
             </tbody>
             <tfoot>
                 <td colspan="3" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Pembelian</td>
                     <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        {{ number_format($pembelian->total )}}</td>
+                        {{ number_format($sale->nilaitransaksi )}}</td>
                     <td colspan="3"></td>    
             </tfoot>
             <!-- Tambahkan informasi lainnya sesuai kebutuhan -->

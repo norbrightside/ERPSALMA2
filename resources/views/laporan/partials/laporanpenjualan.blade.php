@@ -29,7 +29,7 @@
 </div>
 </div>
 </form>
-
+<div class="print-area">
 <table class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <thead class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <tr>
@@ -66,7 +66,7 @@
         </tfoot>
     @endif
 </table>
-
+</div>
 @if ($laporan->total() > 15)
     <div class="bg-white px-4 py-3 sm:px-6">
         {{ $laporan->appends(request()->input())->links() }}
@@ -74,7 +74,7 @@
 @endif
 
 <div class="btn-print">
-    <button onclick="printInvoice()">Cetak Faktur</button>
+    <button onclick="printInvoice()">Cetak Laporan</button>
 </div>
 </div>
 
@@ -84,4 +84,59 @@ function printInvoice() {
     window.print();
 }
 </script>
+<style>
+    .header-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-start;
+     margin-bottom: 20px;
+ }
 
+ .header-left {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .header-right {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-end;
+ }
+
+ .logo {
+     margin-left: 0px;
+     margin-bottom: 5px;
+ }
+
+ .salma {
+     font-size: 24px;
+     font-weight: bold;
+ }
+ .alamat
+ {
+     font-size: 12px;
+     font-weight: bold;
+ }
+ .idorder{
+     font-size: 24px;
+     font-weight: bold;
+ }
+ @media print {
+     body * {
+         visibility: hidden;
+     }
+     .print-area, .print-area * {
+         visibility: visible;
+     }
+     .print-area {
+         position: absolute;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height: 100%;
+     }
+     .btn-print {
+         display: none;
+     }
+ }
+</style>

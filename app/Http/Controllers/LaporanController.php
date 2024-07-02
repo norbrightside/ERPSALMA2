@@ -14,8 +14,9 @@ class LaporanController extends Controller
     public function report(Request $request): View
     {
         $query = Penjualan::with('produk', 'pelanggan')
-            ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+            ->orderBy(DB::raw('CASE WHEN status = "Lunas" THEN 1 ELSE 2 END'))
             ->latest();
+
 
         if ($request->filled('bulan')) {
             $query->whereMonth('tanggalpenjualan', $request->bulan);

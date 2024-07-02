@@ -18,6 +18,7 @@ class Penjualan extends Model
         'nilaitransaksi',
         'qttypenjualan',
         'status',
+        'harga',
         'updated_at',
         'created_at',
     ];

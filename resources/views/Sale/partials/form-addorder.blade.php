@@ -39,6 +39,13 @@
             <p class="text-red-500 text-xs italic">{{ $errors->first('qttypenjualan') }}</p>
         @endif
     </div>
+    <div class="mb-4">
+        <label for="harga" class="block text-gray-700 text-sm font-bold mb-2">harga</label>
+        <input type="text" name="harga" id="harga" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" required>
+        @if ($errors->has('harga'))
+            <p class="text-red-500 text-xs italic">{{ $errors->first('harga') }}</p>
+        @endif
+    </div>
     <!-- Nilai Transaksi -->
     <div class="mb-4">
         <label for="nilaitransaksi" class="block text-gray-700 text-sm font-bold mb-2">Nilai Transaksi</label>
@@ -56,15 +63,23 @@
 
 <!-- Script untuk Menghitung Nilai Transaksi Berdasarkan Harga Produk -->
 <script>
-    document.getElementById('qttypenjualan').addEventListener('input', function() {
-        var qtty = parseFloat(this.value.replace(/[^\d.-]/g, ''));
-        var harga = parseFloat('{{ $produk->first()->harga }}'); // Ganti dengan logika sesuai kebutuhan
+    $(document).ready(function() {
+        $('#qttypenjualan, #harga').on('input', function() {
+            calculateTotal();
+        });
 
-        if (!isNaN(qtty) && !isNaN(harga)) {
-            var nilaiTransaksi = qtty * harga;
-            document.getElementById('nilaitransaksi').value = nilaiTransaksi.toLocaleString('id-ID');
-        } else {
-            document.getElementById('nilaitransaksi').value = '';
+        function calculateTotal() {
+            var qtty = parseFloat($('#qttypenjualan').val().replace(/,/g, '') || 0); // Menggunakan 0 jika kosong
+            var harga = parseFloat($('#harga').val().replace(/,/g, '') || 0); // Menggunakan 0 jika kosong
+            var total = qtty * harga;
+            $('#nilaitransaksi').val(total); // Tampilkan total tanpa format currency
         }
+
+        $('#Form').submit(function(e) {
+            $('#qttypenjualan, #harga').each(function() {
+                var value = $(this).val().replace(/,/g, ''); // Hapus koma sebelum submit
+                $(this).val(value);
+            });
+        });
     });
 </script>

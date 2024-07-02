@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('produk', function (Blueprint $table) {
             $table->id('idbarang')->primary();
             $table->string('namabarang');
-            $table->float('harga');
             $table->timestamp('updated_at')->nullable();;
             $table->timestamp('created_at')->nullable();;
             

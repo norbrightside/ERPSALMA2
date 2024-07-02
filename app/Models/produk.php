@@ -14,7 +14,6 @@ class Produk extends Model
     protected $fillable = [
         'idbarang',
         'namabarang',
-        'harga',
         'updated_at',
         'created_at',
         // tambahkan kolom lain yang relevan

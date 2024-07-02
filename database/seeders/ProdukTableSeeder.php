@@ -16,7 +16,6 @@ class ProdukTableSeeder extends Seeder
         foreach ($staticValues as $value) {
             DB::table('produk')->insert([
                 'namabarang' => $value,
-                'harga' => $faker->numberBetween(500000, 5000000),
             ]);
         }
     }
