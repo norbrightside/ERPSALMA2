@@ -63,26 +63,24 @@ class SaleController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $request->validate([
-            'status' => ['required', 'string', 'in:Order Baru,Lunas,Pengiriman,Selesai'], // Sesuaikan dengan status yang diizinkan
-        ]);
-
-        $sale = Penjualan::findOrFail($id);
-        $sale->status = strtolower($request->input('status')); // Ubah status menjadi lowercase
+        $sale = penjualan::findOrFail($id);
+        $sale->status = $request->input('status');
         $sale->updated_at = Carbon::now();
         $sale->save();
 
-        if ($sale->status == 'Lunas') {
-            $randomGudang = DB::table('gudang')
-                ->whereExists(function ($query) use ($sale) {
-                    $query->select(DB::raw(1))
-                        ->from('inventory')
-                        ->whereRaw('inventory.idgudang = gudang.idgudang')
-                        ->where('inventory.qtty', '>', 0);
+        if ($sale->status == 'lunas') {
+            // Pilih random idgudang dari tabel gudang
+            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
+            $randomGudang2 = DB::table('gudang')
+            ->whereExists(function ($query) use ($sale) {
+            $query->select(DB::raw(1))
+                  ->from('inventory')
+                  ->whereRaw('inventory.idgudang = gudang.idgudang')
+                  ->where('inventory.qtty', '>', 'penjualan.qttypenjualan');
                 })
                 ->inRandomOrder()
                 ->first();
-
+            // Tambahkan data baru ke tabel inventory
             DB::table('inventory')->insert([
                 'idgudang' => $randomGudang->idgudang,
                 'tanggal' => Carbon::now()->toDateString(),
@@ -90,11 +88,14 @@ class SaleController extends Controller
                 'qtty' => $sale->qttypenjualan,
                 'updated_at' => Carbon::now(),
                 'status' => 'antrian keluar',
-            ]);
-        }
 
-        return redirect()->back()->with('success', 'Status berhasil diperbarui');
+        
+            ]);
+            return redirect()->back()->with('success', 'Status berhasil diperbarui');
+    
+        }
     }
+        
 
     public function showCetakFaktur($id)
     {

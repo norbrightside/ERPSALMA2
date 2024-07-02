@@ -58,7 +58,7 @@ class ProduksiController extends Controller
             $query->select(DB::raw(1))
                   ->from('inventory')
                   ->whereRaw('inventory.idgudang = gudang.idgudang')
-                  ->where('inventory.qtty', '>', 0);
+                  ->where('inventory.qtty', '>', 'produksi.qttyproduksi');
         })
         ->inRandomOrder()
         ->first();
