@@ -30,7 +30,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->supplier->namasupplier }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->produk->namabarang }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->qttyorder, 0, ',', '.') }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->hargapembelian, 0, ',', '.') }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->harga, 0, ',', '.') }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->status }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <form action="{{ route('pembelian.updateStatus', $purchase->idorder) }}" method="POST">

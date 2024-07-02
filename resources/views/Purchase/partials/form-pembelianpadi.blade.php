@@ -1,4 +1,4 @@
-<form action="{{ route('pembelian.store') }}" method="POST" class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="Form">
+<form action="{{ route('pembelianpadi.store') }}" method="POST" class="max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="Form">
     @csrf
     <h3 class="text-lg font-semibold mb-4">Tambah Pembelian Padi</h3>
     
@@ -63,6 +63,22 @@
     </div>
 
     <div class="mb-4">
+        <label for="kongsi" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Kongsi</label>
+        <input type="text" name="kongsi" id="kongsi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" readonly>
+        @if ($errors->has('kongsi'))
+            <p class="text-red-500 text-xs italic">{{ $errors->first('kongsi') }}</p>
+        @endif
+    </div>
+
+    <div class="mb-4">
+        <label for="angin" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Angin</label>
+        <input type="text" name="angin" id="angin" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" readonly>
+        @if ($errors->has('angin'))
+            <p class="text-red-500 text-xs italic">{{ $errors->first('angin') }}</p>
+        @endif
+    </div>
+
+    <div class="mb-4">
         <label for="mobil" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Mobil</label>
         <input type="text" name="mobil" id="mobil" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" required>
         @if ($errors->has('mobil'))
@@ -71,8 +87,8 @@
     </div>
 
     <div class="mb-4">
-        <label for="hargapembelian" class="block text-gray-700 text-sm font-bold mb-2">Total Bayar</label>
-        <input type="text" name="hargapembelian" id="hargapembelian" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+        <label for="total" class="block text-gray-700 text-sm font-bold mb-2">Total Bayar</label>
+        <input type="text" name="total" id="total" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  readonly>
     </div>
 
     <div class="flex items-center justify-between">
@@ -91,13 +107,16 @@
             var harga = parseFloat($('#harga').val().replace(/,/g, '') || 0);
             var mobil = parseFloat($('#mobil').val().replace(/,/g, '') || 0);
             var total = qtty * harga;
-            var kongsi = (total / 9) + (total * 0.03);
-            var totalbeli = total + kongsi + mobil;
-            $('#hargapembelian').val(totalbeli.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
+            var kongsi = total / 9 ;
+            var angin = total * 0.03;
+            var totalbeli = total + kongsi + mobil + angin;
+            $('#total').val(totalbeli.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
+            $('#angin').val(angin.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
+            $('#kongsi').val(kongsi.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
         }
 
         $('#Form').submit(function(e) {
-            $('#qttyorder, #harga, #mobil, #hargapembelian').each(function() {
+            $('#qttyorder, #harga, #kongsi, #angin #mobil, #total').each(function() {
                 var value = $(this).val().replace(/,/g, '');
                 $(this).val(value);
             });

@@ -18,13 +18,17 @@ return new class extends Migration
             $table->unsignedBigInteger('idbarang');
             $table->unsignedBigInteger('idgudang');
             $table->float('qttyorder');
-            $table->float('hargapembelian');
+            $table->float('harga');
+            $table->float('kongsi')->nullable();
+            $table->float('angin')->nullable();
+            $table->float('mobil')->nullable();
+            $table->float('total');
             $table->enum('status',['Pemesanan Baru','Dibayar', 'Diterima'])->default('Pemesanan Baru');
             $table->foreign('idgudang')->references('idgudang')->on('gudang')->onDelete('cascade');
             $table->foreign('idsupplier')->references('idsupplier')->on('supplier')->onDelete('cascade');
             $table->foreign('idbarang')->references('idbarang')->on('produk')->onDelete('cascade');
-            $table->timestamp('updated_at')->nullable();;
-            $table->timestamp('created_at')->nullable();;
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nullable();
         });
         
     }

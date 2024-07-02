@@ -38,20 +38,60 @@ class PurchaseController extends Controller
         'idgudang' => ['required', 'exists:gudang,idgudang'],
         'idbarang' => ['required', 'exists:produk,idbarang'],
         'qttyorder' => ['required', 'numeric', 'min:0'],
-        'hargapembelian' => ['required', 'numeric', 'min:0'],
+        
+        'harga' => ['required', 'numeric', 'min:0'],
+        'total' => ['required', 'numeric', 'min:0'],
     ]);
 
     try {
         // Proses menyimpan data pembelian
-        $totalBayar = $request->qttyorder * $request->hargapembelian;
         $pembelian = Pembelian::create([
             'tanggalorder' => $request->tanggalorder,
             'idsupplier' => $request->idsupplier,
             'idbarang' => $request->idbarang,
             'idgudang' => $request->idgudang,
             'qttyorder' => $request->qttyorder,
-            'hargapembelian' => $request->hargapembelian,
-            'totalbayar' => $totalBayar,
+            
+            'harga' => $request->harga,
+            'total' => $request->total,
+        ]);
+
+        // Redirect ke halaman form cetak faktur dengan ID pembelian (idorder)
+        return redirect()->route('formcetakfaktur', ['id' => $pembelian->idorder]);
+    } catch (\Exception $e) {
+        // Handle error saat penyimpanan data
+        return back()->withInput()->withErrors(['error' => 'Gagal menyimpan data pembelian. Silakan coba lagi.']);
+    }
+}
+
+public function storepadi(Request $request)
+{
+    $request->validate([
+        'tanggalorder' => ['required', 'date'],
+        'idsupplier' => ['required', 'exists:supplier,idsupplier'],
+        'idgudang' => ['required', 'exists:gudang,idgudang'],
+        'idbarang' => ['required', 'exists:produk,idbarang'],
+        'qttyorder' => ['required', 'numeric', 'min:0'],
+        'angin' => ['required', 'numeric', 'min:0'],
+        'kongsi'  => ['required', 'numeric', 'min:0'],
+        'mobil'  => ['required', 'numeric', 'min:0'],
+        'harga' => ['required', 'numeric', 'min:0'],
+        'total' => ['required', 'numeric', 'min:0'],
+    ]);
+
+    try {
+        // Proses menyimpan data pembelian
+        $pembelian = Pembelian::create([
+            'tanggalorder' => $request->tanggalorder,
+            'idsupplier' => $request->idsupplier,
+            'idbarang' => $request->idbarang,
+            'idgudang' => $request->idgudang,
+            'qttyorder' => $request->qttyorder,
+            'angin' => $request->angin,
+            'kongsi' => $request->kongsi,
+            'mobil' => $request->mobil,
+            'harga' => $request->harga,
+            'total' => $request->total,
         ]);
 
         // Redirect ke halaman form cetak faktur dengan ID pembelian (idorder)

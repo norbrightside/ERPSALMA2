@@ -55,6 +55,7 @@ Route::middleware('Purchase')->group(function() {
     Route::get('viewpurchaselist', [PurchaseController::class, 'create'])->name('viewpurchaselist');
     Route::get('/pembelian/create', [PurchaseController::class, 'create'])->name('pembelian.create');
     Route::post('/pembelian/store', [PurchaseController::class, 'store'])->name('pembelian.store');
+    Route::post('/pembelianpadi/store', [PurchaseController::class, 'storepadi'])->name('pembelianpadi.store');
     Route::get('/belipadi', [PurchaseController::class, 'showBelipadiForm'])->name('belipadi');
     Route::patch('/pembelian/{id}/updateStatus', [PurchaseController::class, 'updateStatus'])->name('pembelian.updateStatus');
     Route::get('/formcetakfaktur/{id}', [PurchaseController::class, 'showCetakFaktur'])->name('formcetakfaktur');

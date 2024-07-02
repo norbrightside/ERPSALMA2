@@ -19,6 +19,7 @@
                         <p class="alamat">{{ $pembelian->tanggalorder }}
                             <br>
                             {{ $pembelian->supplier->namasupplier }} <br>
+                            {{ $pembelian->supplier->kontak }} <br>
                             {{ $pembelian->supplier->alamat }}
                             </p>
                         
@@ -37,32 +38,32 @@
                     <tr>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $pembelian->produk->namabarang }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->qttyorder) }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->hargapembelian / $pembelian->qttyorder )}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->hargapembelian) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->harga )}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->qttyorder*$pembelian->harga) }}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">Kongsi</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">-</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->kongsi)}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->kongsi)}}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">Angin</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">-</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->angin)}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->angin)}}</td>
                 </tr>
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">Mobil</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
-                    <td class="px-6 py-4 whitespace-nowrap">0</td>
+                    <td class="px-6 py-4 whitespace-nowrap">-</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->mobil)}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->mobil)}}</td>
                 </tr>
                 </tbody>
                 <tfoot>
                     <td colspan="3" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Pembelian</td>
                         <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ number_format($pembelian->hargapembelian )}}</td>
+                            {{ number_format($pembelian->total )}}</td>
                         <td colspan="3"></td>    
                 </tfoot>
                 <!-- Tambahkan informasi lainnya sesuai kebutuhan -->

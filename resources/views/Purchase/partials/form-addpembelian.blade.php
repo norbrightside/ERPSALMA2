@@ -62,8 +62,8 @@
         @endif
     </div>
     <div class="mb-4">
-        <label for="hargapembelian" class="block text-gray-700 text-sm font-bold mb-2">Total Bayar</label>
-        <input type="text" name="hargapembelian" id="hargapembelian" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" readonly>
+        <label for="total" class="block text-gray-700 text-sm font-bold mb-2">Total Bayar</label>
+        <input type="text" name="total" id="total" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" readonly>
     </div>
 
     <div class="flex items-center justify-between">
@@ -82,11 +82,11 @@
             var qtty = parseFloat($('#qttyorder').val().replace(/,/g, '') || 0); // Menggunakan 0 jika kosong
             var harga = parseFloat($('#harga').val().replace(/,/g, '') || 0); // Menggunakan 0 jika kosong
             var total = qtty * harga;
-            $('#hargapembelian').val(total); // Tampilkan total tanpa format currency
+            $('#total').val(total); // Tampilkan total tanpa format currency
         }
 
         $('#Form').submit(function(e) {
-            $('#qttyorder, #hargapembelian').each(function() {
+            $('#qttyorder, #total').each(function() {
                 var value = $(this).val().replace(/,/g, ''); // Hapus koma sebelum submit
                 $(this).val(value);
             });
