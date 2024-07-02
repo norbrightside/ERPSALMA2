@@ -30,4 +30,28 @@ class LaporanController extends Controller
 
         return view('laporan.laporan', compact('laporan'));
     }
+
+    public function reportprintsale(Request $request): View
+    {
+        $query = Penjualan::with('produk', 'pelanggan')
+            ->orderBy(DB::raw('CASE WHEN status = "Lunas" THEN 1 ELSE 2 END'))
+            ->latest();
+
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggalpenjualan', $request->bulan);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggalpenjualan', $request->tahun);
+        }
+
+        // Retrieve all records
+    $laporan = $query->get();
+
+    // Get the current query string parameters
+    $queryString = $request->query();
+
+        return view('laporan.partials.laporanpenjualanprint', compact('laporan', 'queryString'));
+    }
 }

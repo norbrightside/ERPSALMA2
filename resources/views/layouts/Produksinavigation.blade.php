@@ -15,14 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('jadwalProduksi')" :active="request()->routeIs('jadwalProduksi')">
-                        {{ __('Add Jadwal Produksi') }}
+                    <x-nav-link :href="route('viewjadwal')" :active="request()->routeIs('viewjadwal')">
+                        {{ __('List Jadwal Produksi') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link :href="route('addjadwal')" :active="request()->routeIs('addjadwal')">
                         {{ __('Input Produksi') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Status Produksi') }}
+                        {{ __('Report Produksi') }}
                     </x-nav-link>
                 </div>
             </div>

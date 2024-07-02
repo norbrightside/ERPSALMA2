@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('Produksi')->group(function() {
     Route::get('jadwal', [ProduksiController::class, 'create'])
     ->name('jadwalProduksi');
+    Route::get('viewjadwal', [ProduksiController::class, 'viewjadwal'])->name('viewjadwal');
+    Route::get('addjadwal', [ProduksiController::class, 'addjadwal'])->name('addjadwal');
     Route::get('/produksi/create', [ProduksiController::class, 'create'])->name('produksi.create');
     Route::post('/produksi/store', [ProduksiController::class,'store'])->name('produksi.store');
     Route::patch('/produksi/{id}/updateStatus', [ProduksiController::class, 'updateStatus'])->name('produksi.updateStatus');
@@ -46,6 +48,8 @@ Route::patch('/inventory/{id}/updateStatus', [GudangController::class, 'updateSt
 Route::middleware('Sale')->group(function() {
     Route::get('viewsales', [SaleController::class, 'create'])
     ->name('viewsales');
+    Route::get('sales/addsale', [SaleController::class, 'createsales'])->name('addsale');
+    Route::get('sales/confirmsale', [SaleController::class, 'confirmsales'])->name('confirmsale');
     Route::get('/penjualan/create', [SaleController::class, 'create'])->name('penjualan.create');
     Route::post('/penjualan/store', [SaleController::class, 'store'])->name('penjualan.store');
     Route::get('/pelanggan/create', [PelangganController::class, 'create'])->name('pelanggan.create');
@@ -68,6 +72,7 @@ Route::middleware('Purchase')->group(function() {
 
     Route::middleware('Admin')->group(function() {
         Route::get('/sales/report', [LaporanController::class, 'report'])->name('sales.report');
+        Route::get('/sales/reportprint', [LaporanController::class, 'reportprintsale'])->name('sales.reportprint');
 
 });
 require __DIR__.'/auth.php';

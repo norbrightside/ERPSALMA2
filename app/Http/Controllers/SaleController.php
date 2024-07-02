@@ -33,7 +33,48 @@ class SaleController extends Controller
 
         return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
     }
+    public function createsales(Request $request): View
+    {
+        $pelanggan = Pelanggan::all();
+        $produk = Produk::all();
 
+        $query = Penjualan::with('produk', 'pelanggan')
+            ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+            ->latest();
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggalpenjualan', $request->bulan);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggalpenjualan', $request->tahun);
+        }
+
+        $viewsales = $query->paginate(15)->withQueryString();
+
+        return view('Sale.addsale', compact('viewsales', 'pelanggan', 'produk'));
+    }
+    public function confirmsales(Request $request): View
+    {
+        $pelanggan = Pelanggan::all();
+        $produk = Produk::all();
+
+        $query = Penjualan::with('produk', 'pelanggan')
+            ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+            ->latest();
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggalpenjualan', $request->bulan);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggalpenjualan', $request->tahun);
+        }
+
+        $viewsales = $query->paginate(15)->withQueryString();
+
+        return view('sale.confirmsale', compact('viewsales', 'pelanggan', 'produk'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -82,7 +123,7 @@ class SaleController extends Controller
                 ->first();
             // Tambahkan data baru ke tabel inventory
             DB::table('inventory')->insert([
-                'idgudang' => $randomGudang->idgudang,
+                'idgudang' => $randomGudang2->idgudang,
                 'tanggal' => Carbon::now()->toDateString(),
                 'idbarang' => $sale->idbarang,
                 'qtty' => $sale->qttypenjualan,
