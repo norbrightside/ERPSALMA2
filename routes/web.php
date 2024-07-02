@@ -63,7 +63,8 @@ Route::middleware('Purchase')->group(function() {
 });
 
     Route::middleware('Admin')->group(function() {
-    Route::get('/laporan/laporan', [LaporanController::class, 'create'])->name('viewlaporan');
+        Route::get('/sales/report', [LaporanController::class, 'report'])->name('sales.report');
+
 });
 require __DIR__.'/auth.php';
 

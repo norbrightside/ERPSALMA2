@@ -11,16 +11,22 @@ use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
 {
-    public function create(): View
+    public function report(Request $request): View
     {
-        $pelanggan = Pelanggan::all();
-        $produk = Produk::all();
-        
-        $viewlaporansales = Penjualan::with('produk', 'pelanggan')
-            ->orderBy(DB::raw('CASE WHEN status = "Selesai" THEN 1 ELSE 2 END'))
-            ->latest()
-            ->paginate(15);
-        
-        return view('laporan.laporan', compact('viewlaporansales', 'pelanggan', 'produk'));
+        $query = Penjualan::with('produk', 'pelanggan')
+            ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+            ->latest();
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggalpenjualan', $request->bulan);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggalpenjualan', $request->tahun);
+        }
+
+        $laporan = $query->paginate(15)->withQueryString();
+
+        return view('laporan.laporan', compact('laporan'));
     }
 }
