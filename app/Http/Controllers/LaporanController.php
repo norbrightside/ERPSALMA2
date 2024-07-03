@@ -14,7 +14,7 @@ class LaporanController extends Controller
     public function report(Request $request): View
     {
         $query = Penjualan::with('produk', 'pelanggan')
-            ->orderBy(DB::raw('CASE WHEN status = "Lunas" THEN 1 ELSE 2 END'))
+             ->where('status','Lunas')
             ->latest();
 
 
@@ -26,7 +26,11 @@ class LaporanController extends Controller
             $query->whereYear('tanggalpenjualan', $request->tahun);
         }
 
-        $laporan = $query->paginate(15)->withQueryString();
+        // Paginate the results, displaying 15 records per page
+$laporan = $query->paginate(15);
+
+// Manually append the query string parameters to the pagination links
+$laporan->appends($request->all());
 
         return view('laporan.laporan', compact('laporan'));
     }
@@ -34,7 +38,7 @@ class LaporanController extends Controller
     public function reportprintsale(Request $request): View
     {
         $query = Penjualan::with('produk', 'pelanggan')
-            ->orderBy(DB::raw('CASE WHEN status = "Lunas" THEN 1 ELSE 2 END'))
+        ->where('status','Lunas')
             ->latest();
 
 

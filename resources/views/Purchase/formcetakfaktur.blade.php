@@ -42,19 +42,19 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->qttyorder*$pembelian->harga) }}</td>
                 </tr>
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">Kongsi</td>
+                    <td class="px-6 py-4 whitespace-nowrap">Upah Buruh</td>
                     <td class="px-6 py-4 whitespace-nowrap">-</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->kongsi)}}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->kongsi)}}</td>
                 </tr>
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">Angin</td>
+                    <td class="px-6 py-4 whitespace-nowrap">Upah Tampih</td>
                     <td class="px-6 py-4 whitespace-nowrap">-</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->angin)}}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->angin)}}</td>
                 </tr>
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">Mobil</td>
+                    <td class="px-6 py-4 whitespace-nowrap">Ongkos Trasport</td>
                     <td class="px-6 py-4 whitespace-nowrap">-</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->mobil)}}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($pembelian->mobil)}}</td>

@@ -63,7 +63,7 @@
     </div>
 
     <div class="mb-4">
-        <label for="kongsi" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Kongsi</label>
+        <label for="kongsi" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Buruh</label>
         <input type="text" name="kongsi" id="kongsi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" readonly>
         @if ($errors->has('kongsi'))
             <p class="text-red-500 text-xs italic">{{ $errors->first('kongsi') }}</p>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="mb-4">
-        <label for="angin" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Angin</label>
+        <label for="angin" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Tampih</label>
         <input type="text" name="angin" id="angin" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" readonly>
         @if ($errors->has('angin'))
             <p class="text-red-500 text-xs italic">{{ $errors->first('angin') }}</p>
@@ -79,7 +79,7 @@
     </div>
 
     <div class="mb-4">
-        <label for="mobil" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Mobil</label>
+        <label for="mobil" class="block text-gray-700 text-sm font-bold mb-2">Ongkos Transport</label>
         <input type="text" name="mobil" id="mobil" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" data-type="currency" required>
         @if ($errors->has('mobil'))
             <p class="text-red-500 text-xs italic">{{ $errors->first('mobil') }}</p>
