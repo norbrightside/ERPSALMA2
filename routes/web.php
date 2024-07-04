@@ -72,8 +72,9 @@ Route::middleware('Purchase')->group(function() {
 
     Route::middleware('Admin')->group(function() {
         Route::get('/sales/report', [LaporanController::class, 'report'])->name('sales.report');
+        Route::get('/produksi/report', [LaporanController::class, 'reportproduksi'])->name('produksi.report');
         Route::get('/sales/reportprint', [LaporanController::class, 'reportprintsale'])->name('sales.reportprint');
-
+        Route::get('/produksi/reportprint', [LaporanController::class, 'reportprintsale'])->name('produksi.reportprint');
 });
 require __DIR__.'/auth.php';
 

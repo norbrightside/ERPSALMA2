@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Penjualan;
+use App\Models\Produksi;
 use App\Models\Pelanggan;
 use App\Models\Produk;
 use Illuminate\View\View;
@@ -35,6 +36,29 @@ $laporan->appends($request->all());
         return view('laporan.laporan', compact('laporan'));
     }
 
+    public function reportproduksi(Request $request): View
+    {
+        $query = Produksi::with('produk')
+             ->where('status','produksi', 'selesai')
+            ->latest();
+
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggalproduksi', $request->bulan);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggalproduksi', $request->tahun);
+        }
+
+        // Paginate the results, displaying 15 records per page
+$laporanproduksi = $query->paginate(15);
+
+// Manually append the query string parameters to the pagination links
+$laporanproduksi->appends($request->all());
+
+        return view('laporan.laporanproduksi', compact('laporanproduksi'));
+    }
     public function reportprintsale(Request $request): View
     {
         $query = Penjualan::with('produk', 'pelanggan')
