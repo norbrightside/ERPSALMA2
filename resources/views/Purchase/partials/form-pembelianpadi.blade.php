@@ -85,6 +85,10 @@
             <p class="text-red-500 text-xs italic">{{ $errors->first('mobil') }}</p>
         @endif
     </div>
+    <div class="mb-4">
+        <label for="totalburuh" class="block text-gray-700 text-sm font-bold mb-2">Total Buruh</label>
+        <input type="text" name="totalburuh" id="totalburuh" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  readonly>
+    </div>
 
     <div class="mb-4">
         <label for="total" class="block text-gray-700 text-sm font-bold mb-2">Total Bayar</label>
@@ -109,14 +113,17 @@
             var total = qtty * harga;
             var kongsi = total / 9 ;
             var angin = total * 0.03;
-            var totalbeli = total + kongsi + mobil + angin;
+            var totalburuh = total + kongsi + mobil + angin;
+            
+            var totalbeli = total;
+            $('#totalburuh').val(totalburuh.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
             $('#total').val(totalbeli.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
             $('#angin').val(angin.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
             $('#kongsi').val(kongsi.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''));
         }
 
         $('#Form').submit(function(e) {
-            $('#qttyorder, #harga, #kongsi, #angin #mobil, #total').each(function() {
+            $('#qttyorder, #harga, #kongsi, #angin #mobil, #total, #totalburuh' ).each(function() {
                 var value = $(this).val().replace(/,/g, '');
                 $(this).val(value);
             });

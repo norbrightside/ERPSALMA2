@@ -72,12 +72,12 @@ class GudangController extends Controller
     {
         $request->validate([
             'namabarang' => ['required','string','max:255'],
-            'harga' => ['required','numeric','min:0'],
+           
         ]);
 
         Produk::create([
             'namabarang' => $request->namabarang,
-            'harga' => $request->harga,
+           
         ]);
 
         return redirect()->back()->with('success', 'Produk berhasil ditambahkan');

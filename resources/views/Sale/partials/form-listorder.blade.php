@@ -15,6 +15,8 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai Transaksi</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qtty</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Update Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cetak</th>
                 </tr>
             </thead>
             <!-- Table Body -->
@@ -38,6 +40,7 @@
                                 <!-- Tambahkan status lain jika diperlukan -->
                             </select>
                         </form>
+                        <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('formcetakfakturpenjualan', ['id' => $sales->nofak]) }}" class="text-blue-500 hover:underline">Cetak</a></td>
                     </td>
                 </tr>
                 @endforeach

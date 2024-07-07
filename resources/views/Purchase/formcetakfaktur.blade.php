@@ -64,7 +64,13 @@
                     <td colspan="3" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Pembelian</td>
                         <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ number_format($pembelian->total )}}</td>
-                        <td colspan="3"></td>    
+                        <td colspan="3"></td> 
+                        
+                    <td colspan="3" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Upah</td>
+                        <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ number_format($pembelian->kongsi+$pembelian->angin+$pembelian->mobil )}}</td>
+                        <td colspan="3"></td>   
+                       
                 </tfoot>
                 <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
             </table>

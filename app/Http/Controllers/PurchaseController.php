@@ -20,7 +20,7 @@ class PurchaseController extends Controller
     public function create()
     {
         $gudang = Gudang::all();
-        $supplier = Supplier::all();
+        $supplier = Supplier::orderBy('namasupplier', 'asc')->get();
         $produk = Produk::all();
         $viewpurchaselist = Pembelian::with('produk', 'supplier')
             ->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))

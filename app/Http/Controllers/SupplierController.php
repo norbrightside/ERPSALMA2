@@ -18,11 +18,11 @@ class SupplierController extends Controller
         $request->validate([
             'namasupplier' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string', 'max:255'],
-            'kontak' => ['required', 'string', 'max:255'],
+            'kontak' => ['required', 'string', 'max:15'],
         ]);
 
         supplier::create([
-            'namasupplier' => $request->namapelanggan,
+            'namasupplier' => $request->namasupplier,
             'alamat' => $request->alamat,
             'kontak' => $request->kontak,
         ]);
