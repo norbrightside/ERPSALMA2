@@ -27,7 +27,7 @@
 <div class="flex items-end">
     <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Filter</button>
 </div>
-<a href="{{ route('produksi.reportprint')}}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cetak Laporan</a>
+<a href="{{ route('produksi.reportprint') }}?bulan={{ request('bulan') }}&tahun={{ request('tahun') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cetak Laporan Produksi</a>
 </div>
 </form>
 <div class="print-area">

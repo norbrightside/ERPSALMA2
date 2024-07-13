@@ -84,26 +84,28 @@ $laporanproduksi->appends($request->all());
         return view('laporan.partials.laporanproduksiprint', compact('laporanproduksi', 'queryString'));
     }
     public function reportprintsale(Request $request): View
-    {
-        $query = Penjualan::with('produk', 'pelanggan')
-        ->where('status','Lunas')
-            ->latest();
+{
+    $query = Penjualan::with('produk', 'pelanggan')
+        ->where('status', 'Lunas')
+        ->latest();
 
+    if ($request->filled('bulan')) {
+        $query->whereMonth('tanggalpenjualan', $request->bulan);
+    }
 
-        if ($request->filled('bulan')) {
-            $query->whereMonth('tanggalpenjualan', $request->bulan);
-        }
+    if ($request->filled('tahun')) {
+        $query->whereYear('tanggalpenjualan', $request->tahun);
+    }
 
-        if ($request->filled('tahun')) {
-            $query->whereYear('tanggalpenjualan', $request->tahun);
-        }
-
-        // Retrieve all records
+    // Retrieve all records based on filters
     $laporan = $query->get();
 
     // Get the current query string parameters
     $queryString = $request->query();
 
-        return view('laporan.partials.laporanpenjualanprint', compact('laporan', 'queryString'));
-    }
+    return view('laporan.partials.laporanpenjualanprint', compact('laporan', 'queryString'));
+}
+
+
+
 }
