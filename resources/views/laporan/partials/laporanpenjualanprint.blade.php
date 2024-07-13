@@ -1,41 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Cetak Laporan Penjualan') }}
-        </h2>
-        <form action="{{ route('sales.reportprint') }}" method="GET" class="mb-4">
-            <div class="flex space-x-4">
-                <div>
-            <label for="bulan" class="block text-sm font-medium text-gray-700">Pilih Bulan:</label>
-            <select name="bulan" id="bulan" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                <option value="">-- Pilih Bulan --</option>
-                @foreach (range(1, 12) as $month)
-                    <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($month, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
-                        {{ DateTime::createFromFormat('!m', $month)->format('F') }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div>
-            <label for="tahun" class="block text-sm font-medium text-gray-700">Pilih Tahun:</label>
-            <select name="tahun" id="tahun" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                <option value="">-- Pilih Tahun --</option>
-                @foreach (range(date('Y'), date('Y') - 10) as $year)
-                    <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
-                        {{ $year }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="flex items-end">
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Filter</button>
-        </div>
-        <button onclick="printInvoice()">Cetak Laporan</button>
-        </div>
-        </form>
-    </x-slot>
-
-    
 
 <div class="py-12 print-area">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -43,7 +6,7 @@
             <div class="p-6 text-gray-900">
                 <div class="header-container">
                 <div class="header-right">
-                        <x-application-logo class="logo block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="logo block h-25 w-auto fill-current text-gray-800" />
                         <h2 class="salma">SALMA</h2>
                         
                     </div>

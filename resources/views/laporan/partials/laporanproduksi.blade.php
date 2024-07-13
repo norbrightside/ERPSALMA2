@@ -1,4 +1,4 @@
-<h3 class="text-lg font-semibold mb-4">Laporan Penjualan</h3>
+<h3 class="text-lg font-semibold mb-4">Laporan Produksi</h3>
 
 <form action="{{ route('produksi.report') }}" method="GET" class="mb-4">
     <div class="flex space-x-4">
@@ -57,7 +57,7 @@
     @if ($laporanproduksi->total() > 0)
         <tfoot>
             <tr>
-                <td colspan="6" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Biaya Produksi</td>
+                <td colspan="5" class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Total Biaya Produksi</td>
                 <td class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     {{ number_format($laporanproduksi->sum('biayaproduksi'), 0, ',', '.') }}
                 </td>
