@@ -2,8 +2,12 @@
     @csrf
 
     <div class="mb-4">
-        <label for="lokasigudang" class="block text-gray-700 text-sm font-bold mb-2">Lokasi Gudang</label>
-        <input type="text" name="lokasigudang" id="lokasigudang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        <label for="idgudang" class="block text-gray-700 text-sm font-bold mb-2">lokasigudang</label>
+        <select name="idgudang" id="idgudang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            @foreach ($gudang as $lokasi)
+                <option value="{{ $lokasi->idgudang }}">{{ $lokasi->lokasigudang }}</option>
+            @endforeach
+        </select>
     </div>
 
     <div class="mb-4">
@@ -12,7 +16,7 @@
     </div>
 
     <div class="mb-4">
-        <label for="idbarang" class="block text-gray-700 text-sm font-bold mb-2">ID Barang</label>
+        <label for="idbarang" class="block text-gray-700 text-sm font-bold mb-2">Barang</label>
         <select name="idbarang" id="idbarang" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             @foreach ($produk as $barang)
                 <option value="{{ $barang->idbarang }}">{{ $barang->namabarang }}</option>

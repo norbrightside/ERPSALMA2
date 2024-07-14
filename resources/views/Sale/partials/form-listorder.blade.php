@@ -96,8 +96,10 @@
                     </select>
                 </form>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <a href="{{ route('formcetakfakturpenjualan', ['id' => $sales->nofak]) }}" class="text-blue-500 hover:underline">Cetak</a>
+            <td class="px-6 py-4">
+                <button class="bg-green-500 text-white px-2 py-1 rounded">
+                    <a href="{{ route('formcetakfakturpenjualan', ['id' => $sales->nofak]) }}" class="text-white hover:underline">Cetak</a>
+                </button>
             </td>
         </tr>
         @endforeach

@@ -125,34 +125,36 @@ class SaleController extends Controller
         $sale->status = $request->input('status');
         $sale->updated_at = Carbon::now();
         $sale->save();
-
+    
         if ($sale->status == 'lunas') {
             // Pilih random idgudang dari tabel gudang
-            $randomGudang = DB::table('gudang')->inRandomOrder()->first();
             $randomGudang2 = DB::table('gudang')
-            ->whereExists(function ($query) use ($sale) {
-            $query->select(DB::raw(1))
-                  ->from('inventory')
-                  ->whereRaw('inventory.idgudang = gudang.idgudang')
-                  ->where('inventory.qtty', '>', 'penjualan.qttypenjualan');
+                ->whereExists(function ($query) use ($sale) {
+                    $query->select(DB::raw(1))
+                          ->from('inventory')
+                          ->whereRaw('inventory.idgudang = gudang.idgudang')
+                          ->where('inventory.qtty', '>', $sale->qttypenjualan);
                 })
                 ->inRandomOrder()
                 ->first();
-            // Tambahkan data baru ke tabel inventory
-            DB::table('inventory')->insert([
-                'idgudang' => $randomGudang2->idgudang,
-                'tanggal' => Carbon::now()->toDateString(),
-                'idbarang' => $sale->idbarang,
-                'qtty' => $sale->qttypenjualan,
-                'updated_at' => Carbon::now(),
-                'status' => 'antrian keluar',
-
-        
-            ]);
-            return redirect()->back()->with('success', 'Status berhasil diperbarui');
     
+            if ($randomGudang2) {
+                // Tambahkan data baru ke tabel inventory
+                DB::table('inventory')->insert([
+                    'idgudang' => $randomGudang2->idgudang,
+                    'tanggal' => Carbon::now()->toDateString(),
+                    'idbarang' => $sale->idbarang,
+                    'qtty' => $sale->qttypenjualan,
+                    'updated_at' => Carbon::now(),
+                    'status' => 'antrian keluar',
+                ]);
+            }
         }
+    
+        return redirect()->route('viewsales')->with('success', 'Status berhasil diperbarui');
     }
+    
+    
         
 
     public function showCetakFaktur($id)
@@ -167,4 +169,18 @@ class SaleController extends Controller
         // Implementasikan logika cetak faktur jika dibutuhkan
         return redirect()->route('Sale.order');
     }
+
+    public function getSalesHighlight()
+{
+    $today = now()->format('Y-m-d');
+    $sales = Penjualan::with(['produk', 'pelanggan'])
+        ->whereDate('tanggalpenjualan', $today)
+        ->where('status', 'Lunas')
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+    
+    return response()->json($sales);
+}
+
 }

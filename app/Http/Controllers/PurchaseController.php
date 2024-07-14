@@ -17,15 +17,34 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class PurchaseController extends Controller
 {
-    public function create()
-    {
-        $gudang = Gudang::all();
-        $supplier = Supplier::orderBy('namasupplier', 'asc')->get();
-        $produk = Produk::all();
-        $viewpurchaselist = Pembelian::with('produk', 'supplier')
-            ->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
-            ->latest()
-            ->paginate(15);
+    public function create(Request $request)
+{
+    $gudang = Gudang::all();
+    $supplier = Supplier::orderBy('namasupplier', 'asc')->get();
+    $produk = Produk::all();
+
+    $query = Pembelian::with('produk', 'supplier')
+        ->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
+        ->latest();
+
+    // Apply filters if present
+    if ($request->filled('tanggalorder')) {
+        $query->whereDate('tanggalorder', $request->tanggalorder);
+    }
+
+    if ($request->filled('idsupplier')) {
+        $query->where('idsupplier', $request->idsupplier);
+    }
+
+    if ($request->filled('idbarang')) {
+        $query->where('idbarang', $request->idbarang);
+    }
+
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    $viewpurchaselist = $query->paginate(15)->withQueryString();
 
         return view('Purchase.datapembelian', compact('viewpurchaselist', 'supplier', 'produk', 'gudang'));
     }
@@ -150,5 +169,19 @@ public function cetakFaktur($id)
     // Redirect kembali ke halaman Sale.order
     return redirect()->route('viewpurchaselist');
 }
+
+public function highlightPembelianToday()
+{
+    $today = Carbon::today(); // Get today's date
+
+    $viewpurchaselist = Pembelian::with('produk', 'supplier')
+        ->whereDate('tanggalorder', $today) // Filter for today's date
+        ->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
+        ->latest()
+        ->paginate(15); // Adjust pagination as needed
+
+    return response()->json($viewpurchaselist);
+}
+
 
 }

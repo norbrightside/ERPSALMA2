@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Inventory;
 use App\Models\Produk;
+use App\Models\gudang;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class GudangController extends Controller
             ->get();
     
         $produk = Produk::all(); // Ambil semua data produk
-    
+        $gudang = Gudang::all();
         $query = Inventory::with('produk')->orderBy('updated_at', 'desc');
     
         // Apply filters if present
@@ -45,14 +46,14 @@ class GudangController extends Controller
     
         $viewinventory = $query->paginate(15)->withQueryString();
     
-        return view('Gudang.inventory', compact('viewinventory', 'produk', 'stok'));
+        return view('Gudang.inventory', compact('viewinventory', 'produk', 'stok', 'gudang'));
     }
     
 
     public function store(Request $request)
     {
         $request->validate([
-            'idgudang' => ['required', 'exists:gudang,gudang'],
+            'idgudang' => ['required', 'exists:gudang,idgudang'],
             'tanggal' => ['required', 'date'],
             'idbarang' => ['required', 'exists:produk,idbarang'],
             'qtty' => ['required', 'numeric', 'min:0'],
@@ -91,5 +92,19 @@ class GudangController extends Controller
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui');
     }
-
+    public function highlightStock()
+    {
+        $stok = DB::table('gudang')
+            ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
+            ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
+            ->select('gudang.lokasigudang', 'produk.namabarang',
+                DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) - 
+                         SUM(CASE WHEN inventory.status = "dikirim" THEN inventory.qtty ELSE 0 END) as total_qtty'))
+            ->groupBy('produk.namabarang', 'gudang.lokasigudang')
+            ->orderBy('gudang.lokasigudang', 'asc')
+            ->get();
+    
+        return response()->json($stok);
+    }
+    
 }

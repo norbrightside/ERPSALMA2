@@ -15,15 +15,32 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class ProduksiController extends Controller
 {
-    public function create(): View
+    public function create(Request $request): View
     {
         $produk = Produk::all();
-        $jadwalProduksi = Produksi::with('produk')->orderBy(DB::raw('CASE WHEN status = "Preproduksi" THEN 1 ELSE 2 END'))
-        ->latest()
-        ->paginate(15);
+    
+        $query = Produksi::with('produk')
+            ->orderBy(DB::raw('CASE WHEN status = "Preproduksi" THEN 1 ELSE 2 END'))
+            ->latest();
+    
+        // Apply filters if present
+        if ($request->filled('tanggalproduksi')) {
+            $query->whereDate('tanggalproduksi', $request->tanggalproduksi);
+        }
+    
+        if ($request->filled('idbarang')) {
+            $query->where('idbarang', $request->idbarang);
+        }
+    
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+    
+        $jadwalProduksi = $query->paginate(15)->withQueryString();
+    
         return view('produksi.jadwalproduksi', compact('jadwalProduksi', 'produk'));
-        
     }
+    
     public function addjadwal(): View
     {
         $produk = Produk::all();
@@ -127,4 +144,16 @@ class ProduksiController extends Controller
     return redirect()->back()->with('success', 'Status berhasil diperbarui');
         
     }
+    public function getJadwalProduksi()
+{
+    $produk = Produk::all();
+    $jadwalProduksi = Produksi::with('produk')
+        ->whereDate('tanggalproduksi', Carbon::today()) 
+        ->orderBy(DB::raw('CASE WHEN status = "Preproduksi" THEN 1 ELSE 2 END'))
+        ->latest()
+        ->paginate(15);
+
+    return response()->json($jadwalProduksi);
+}
+
 }

@@ -14,10 +14,12 @@ class GudangTableSeeder extends Seeder
 
     public function run(): void
     {
+        $staticValues = ['Gudang Lt 2', 'Gudang Lantai 1'];
+     
         $faker = Faker::create(config('app.faker_locale'));
-        foreach (range(1, 2) as $index) {
+        foreach ($staticValues as $value) {
             DB::table('gudang')->insert([
-                'lokasigudang' => $faker->city,
+                'lokasigudang' => $value,
             ]);
         //
     }
