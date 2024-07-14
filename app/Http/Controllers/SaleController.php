@@ -15,23 +15,40 @@ class SaleController extends Controller
     public function create(Request $request): View
     {
         $pelanggan = Pelanggan::all();
-        $produk = Produk::all();
+    $produk = Produk::all();
 
-        $query = Penjualan::with('produk', 'pelanggan')
-            ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
-            ->latest();
+    $query = Penjualan::with('produk', 'pelanggan')
+        ->orderBy(DB::raw('CASE WHEN status = "Order Baru" THEN 1 ELSE 2 END'))
+        ->latest();
 
-        if ($request->filled('bulan')) {
-            $query->whereMonth('tanggalpenjualan', $request->bulan);
-        }
+    // Apply filters if present
+    if ($request->filled('bulan')) {
+        $query->whereMonth('tanggalpenjualan', $request->bulan);
+    }
 
-        if ($request->filled('tahun')) {
-            $query->whereYear('tanggalpenjualan', $request->tahun);
-        }
+    if ($request->filled('tahun')) {
+        $query->whereYear('tanggalpenjualan', $request->tahun);
+    }
 
-        $viewsales = $query->paginate(15)->withQueryString();
+    if ($request->filled('namapelanggan')) {
+        $query->whereHas('pelanggan', function ($query) use ($request) {
+            $query->where('namapelanggan', $request->namapelanggan);
+        });
+    }
 
-        return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
+    if ($request->filled('namabarang')) {
+        $query->whereHas('produk', function ($query) use ($request) {
+            $query->where('namabarang', $request->namabarang);
+        });
+    }
+
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    $viewsales = $query->paginate(15)->withQueryString();
+
+    return view('Sale.order', compact('viewsales', 'pelanggan', 'produk'));
     }
     public function createsales(Request $request): View
     {

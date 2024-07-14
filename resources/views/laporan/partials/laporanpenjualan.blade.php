@@ -1,11 +1,11 @@
 <h3 class="text-lg font-semibold mb-4">Laporan Penjualan</h3>
 
 <form action="{{ route('sales.report') }}" method="GET" class="mb-4">
-    <div class="flex space-x-4">
-        <div>
+    <div class="flex flex-wrap gap-4">
+        <div class="w-full md:w-1/5">
     <label for="bulan" class="block text-sm font-medium text-gray-700">Pilih Bulan:</label>
     <select name="bulan" id="bulan" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        <option value="">-- Pilih Bulan --</option>
+        <option value="" >Bulan</option>
         @foreach (range(1, 12) as $month)
             <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}" {{ request('bulan') == str_pad($month, 2, '0', STR_PAD_LEFT) ? 'selected' : '' }}>
                 {{ DateTime::createFromFormat('!m', $month)->format('F') }}
@@ -16,7 +16,7 @@
 <div>
     <label for="tahun" class="block text-sm font-medium text-gray-700">Pilih Tahun:</label>
     <select name="tahun" id="tahun" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        <option value="">-- Pilih Tahun --</option>
+        <option value="">Tahun</option>
         @foreach (range(date('Y'), date('Y') - 10) as $year)
             <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
                 {{ $year }}
@@ -26,8 +26,9 @@
 </div>
 <div class="flex items-end">
     <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Filter</button>
+    <a href="{{ route('sales.reportprint', request()->query()) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cetak Laporan</a>
+
 </div>
-<a href="{{ route('sales.reportprint', request()->query()) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white-600 hover:bg-white-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cetak Laporan</a>
 </div>
 </form>
 <div class="print-area">
