@@ -31,16 +31,19 @@ Route::middleware('Produksi')->group(function() {
     Route::get('jadwal', [ProduksiController::class, 'create'])
     ->name('jadwalProduksi');
     Route::get('/produksi/jadwal', [ProduksiController::class, 'getJadwalProduksi'])->name('produksi.jadwal');
-
+    Route::get('/produksi/report', [LaporanController::class, 'reportproduksi'])->name('produksi.report');
     Route::get('viewjadwal', [ProduksiController::class, 'viewjadwal'])->name('viewjadwal');
     Route::get('addjadwal', [ProduksiController::class, 'addjadwal'])->name('addjadwal');
     Route::get('/produksi/create', [ProduksiController::class, 'create'])->name('produksi.create');
     Route::post('/produksi/store', [ProduksiController::class,'store'])->name('produksi.store');
     Route::patch('/produksi/{id}/updateStatus', [ProduksiController::class, 'updateStatus'])->name('produksi.updateStatus');
+    Route::get('/produksi/reportprint', [LaporanController::class, 'reportprintproduksi'])->name('produksi.reportprint');
 });
 
 Route::middleware('Gudang')->group(function() {
     Route::get('viewinventory', [GudangController::class, 'create'])->name('viewinventory');
+    Route::get('addinventory', [GudangController::class, 'showAddInventoryForm'])->name('addinventory');;
+    Route::get('listinventory', [GudangController::class, 'creategudang'])->name('listinventory');
     Route::get('/stock/highlight', [GudangController::class, 'highlightStock'])->name('stock.highlight');
 
 Route::get('/gudang/create', [GudangController::class, 'create'])->name('gudang.create');
@@ -63,9 +66,15 @@ Route::middleware('Sale')->group(function() {
     Route::patch('/sales/{id}/updateStatus', [SaleController::class, 'updateStatus'])->name('sales.updateStatus');
     Route::get('/formcetakfakturpenjualan/{id}', [SaleController::class, 'showCetakFaktur'])->name('formcetakfakturpenjualan');
     Route::post('/cetakfakturpenjualan/{id}', [SaleController::class, 'cetakFaktur'])->name('cetakFaktur');
+    Route::get('/sales/report', [LaporanController::class, 'report'])->name('sales.report');
+        
+    Route::get('/sales/reportprint', [LaporanController::class, 'reportprintsale'])->name('sales.reportprint');
 });
 Route::middleware('Purchase')->group(function() {
     Route::get('viewpurchaselist', [PurchaseController::class, 'create'])->name('viewpurchaselist');
+    Route::get('/purchaseproduk', [PurchaseController::class, 'showAddPembelianForm'])->name('purchaseproduk');
+    Route::get('/purchasepadi', [PurchaseController::class, 'showAddPembelianPadiForm'])->name('purchasepadi');
+    Route::get('purchaselist', [PurchaseController::class, 'createpembelian'])->name('purchaselist');
     Route::get('/pembelian/highlight-today', [PurchaseController::class, 'highlightPembelianToday'])->name('pembelian.highlight.today');
 
     Route::get('/pembelian/create', [PurchaseController::class, 'create'])->name('pembelian.create');
@@ -81,10 +90,8 @@ Route::middleware('Purchase')->group(function() {
 
     Route::middleware('Admin')->group(function() {
         
-        Route::get('/sales/report', [LaporanController::class, 'report'])->name('sales.report');
-        Route::get('/produksi/report', [LaporanController::class, 'reportproduksi'])->name('produksi.report');
-        Route::get('/sales/reportprint', [LaporanController::class, 'reportprintsale'])->name('sales.reportprint');
-        Route::get('/produksi/reportprint', [LaporanController::class, 'reportprintproduksi'])->name('produksi.reportprint');
+       
+       
 });
 require __DIR__.'/auth.php';
 

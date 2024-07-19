@@ -33,5 +33,6 @@
                             @include('Gudang.partials.stok')
                         </div>
                     </div>
-            
+                </div>
+            </div>
 </x-app-layout>

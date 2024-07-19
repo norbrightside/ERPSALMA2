@@ -48,7 +48,56 @@ class PurchaseController extends Controller
 
         return view('Purchase.datapembelian', compact('viewpurchaselist', 'supplier', 'produk', 'gudang'));
     }
+    public function createpembelian(Request $request)
+    {
+        $gudang = Gudang::all();
+        $supplier = Supplier::orderBy('namasupplier', 'asc')->get();
+        $produk = Produk::all();
+    
+        $query = Pembelian::with('produk', 'supplier')
+            ->orderBy(DB::raw('CASE WHEN status = "Pemesanan Baru" THEN 1 ELSE 2 END'))
+            ->latest();
+    
+        // Apply filters if present
+        if ($request->filled('tanggalorder')) {
+            $query->whereDate('tanggalorder', $request->tanggalorder);
+        }
+    
+        if ($request->filled('idsupplier')) {
+            $query->where('idsupplier', $request->idsupplier);
+        }
+    
+        if ($request->filled('idbarang')) {
+            $query->where('idbarang', $request->idbarang);
+        }
+    
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+    
+        $viewpurchaselist = $query->paginate(15)->withQueryString();
+    
+            return view('Purchase.purchasedata', compact('viewpurchaselist', 'supplier', 'produk', 'gudang'));
+        }
 
+        public function showAddPembelianForm()
+        {
+            $gudang = Gudang::all();
+            $supplier = Supplier::orderBy('namasupplier', 'asc')->get();
+            $produk = Produk::all();
+
+        
+            return view('Purchase.addpembelian', compact('gudang', 'supplier' ,'produk'));
+        }
+        public function showAddPembelianPadiForm()
+        {
+            $gudang = Gudang::all();
+            $supplier = Supplier::orderBy('namasupplier', 'asc')->get();
+            $produk = Produk::all();
+
+        
+            return view('Purchase.addpembelianpadi', compact('gudang', 'supplier' ,'produk'));
+        }
     public function store(Request $request)
 {
     $request->validate([

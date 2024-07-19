@@ -21,6 +21,9 @@
                         <x-nav-link href="{{ route('confirmsale') }}" :active="request()->routeIs('confirmsale')">
                             {{ __('Confirm Payment') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('sales.report')" :active="request()->routeIs('sales.report')">
+                            {{ __('Laporan Penjualan') }}
+                        </x-nav-link>
                     </div>
             </div>
             <!-- Settings Dropdown -->

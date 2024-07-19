@@ -15,17 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <xx-nav-link href="{{ route('viewpurchaselist') }}" :active="request()->routeIs('viewpurchaselist')">
-                        {{ __('Purchase List') }}
+                    <x-nav-link href="{{ route('purchaselist') }}" :active="request()->routeIs('purchaselist')">
+                        {{ __('Daftar Pembalian') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('purchasepadi') }}" :active="request()->routeIs('purchasepadi')">
                         {{ __('Pembelian Padi') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link href="{{ route('purchaseproduk') }}" :active="request()->routeIs('purchaseproduk')">
                         {{ __('Pembelian Barang') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Add Supplier') }}
                     </x-nav-link>
                     </div>
             </div>
@@ -81,14 +78,14 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-dropdown-link href="#">
+            <x-dropdown-link href="{{ route('purchaselist') }}" :active="request()->routeIs('purchaselist')">
+                    {{ __('Daftar Pembelian') }}
+                </x-dropdown-link>
+            <x-dropdown-link href="{{ route('purchasepadi') }}" :active="request()->routeIs('purchasepadi')">
                     {{ __('Pembelian Padi') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
+                <x-dropdown-link href="{{ route('purchaseproduk') }}" :active="request()->routeIs('purchaseproduk')">
                     {{ __('Pembelian Barang') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Add Supplier') }}
                 </x-dropdown-link>
             </div>
 

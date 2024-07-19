@@ -15,17 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Add Barang') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
-                        {{ __('Add Gudang') }}
-                    </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link :href="route('addinventory')" :active="request()->routeIs('addinventory')">
                         {{ __('Pencatatan Inventory') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('viewinventory') }}" :active="request()->routeIs('viewinventory')">
-                        {{ __('Cek Inventory') }}
+                    <x-nav-link href="{{ route('listinventory') }}" :active="request()->routeIs('listinventory')">
+                        {{ __('Data Inventory') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -81,17 +75,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-dropdown-link href="#">
-                    {{ __('Add Barang') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Add Gudang') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
+                <x-dropdown-link :href="route('addinventory')" :active="request()->routeIs('addinventory')">
                     {{ __('Pencatatan Inventory') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Cek Inventory') }}
+                <x-dropdown-link href="{{ route('listinventory') }}" :active="request()->routeIs('listinventory')">
+                    {{ __('Data Inventory') }}
                 </x-dropdown-link>
             </div>
 

@@ -123,8 +123,11 @@
                 <x-dropdown-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                     {{ __('Manage User') }}
                 </x-dropdown-link>
-                <x-dropdown-link href="#" :active="request()->routeIs('#')">
-                    {{ __('Report') }}
+                <x-dropdown-link :href="route('sales.report')">
+                    {{ __('Report Penjualan') }}
+                </x-dropdown-link>
+                <x-dropdown-link :href="route('produksi.report')">
+                    {{ __('Report Produksi') }}
                 </x-dropdown-link>
             </div>
 

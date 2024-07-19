@@ -21,7 +21,7 @@
                     <x-nav-link :href="route('addjadwal')" :active="request()->routeIs('addjadwal')">
                         {{ __('Input Produksi') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('#')">
+                    <x-nav-link :href="route('produksi.report')" :active="request()->routeIs('produksi.report')">
                         {{ __('Report Produksi') }}
                     </x-nav-link>
                 </div>
