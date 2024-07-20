@@ -65,7 +65,7 @@ Route::middleware('Sale')->group(function() {
     Route::post('/pelanggan/store', [PelangganController::class, 'store'])->name('pelanggan.store');
     Route::patch('/sales/{id}/updateStatus', [SaleController::class, 'updateStatus'])->name('sales.updateStatus');
     Route::get('/formcetakfakturpenjualan/{id}', [SaleController::class, 'showCetakFaktur'])->name('formcetakfakturpenjualan');
-    Route::post('/cetakfakturpenjualan/{id}', [SaleController::class, 'cetakFaktur'])->name('cetakFaktur');
+    Route::post('/cetakfakturpenjualan/{id}', [SaleController::class, 'cetakFaktur'])->name('cetakFakturpenjualan');
     Route::get('/sales/report', [LaporanController::class, 'report'])->name('sales.report');
         
     Route::get('/sales/reportprint', [LaporanController::class, 'reportprintsale'])->name('sales.reportprint');
