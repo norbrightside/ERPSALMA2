@@ -7,7 +7,7 @@
 @endif
 
 <!-- Filter Form -->
-<form action="{{ route('viewpurchaselist') }}" method="GET" class="mb-4">
+<form action="{{ route('viewpurchaselist') }}" method="post" class="mb-4">
     <div class="flex flex-wrap gap-4">
         <div class="w-full md:w-1/5">
             <label for="tanggalorder" class="block text-sm font-medium text-gray-700">Tanggal Order:</label>
