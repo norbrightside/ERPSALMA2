@@ -21,7 +21,7 @@
         $(document).ready(function(){
             $.ajax({
                 url: "{{ route('sales.highlight') }}",
-                method: 'GET',
+                method: 'post',
                 success: function(data) {
                     var salesContent = '<table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>' +
                         '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Faktur</th>' +
@@ -88,7 +88,7 @@
     $(document).ready(function() {
         $.ajax({
             url: "{{ route('produksi.jadwal') }}",
-            method: 'GET',
+            method: 'post',
             success: function(data) {
                 var jadwalContent = '<table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>' +
                     '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Produk</th>' +
@@ -135,7 +135,7 @@
     $(document).ready(function() {
         $.ajax({
             url: "{{ route('pembelian.highlight.today') }}",
-            method: 'GET',
+            method: 'post',
             success: function(data) {
                 var pembelianContent = '<table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>' +
                     '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Order</th>' +
@@ -185,7 +185,7 @@
                 $(document).ready(function() {
                     $.ajax({
                         url: "{{ route('stock.highlight') }}",
-                        method: 'GET',
+                        method: 'post',
                         success: function(data) {
                             var stockContent = '<table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>' +
                                 '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lokasi Gudang</th>' +
