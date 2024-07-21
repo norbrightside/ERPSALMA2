@@ -1,7 +1,7 @@
 <h3 class="text-lg font-semibold mb-4">Daftar Inventory</h3>
 
 {{-- Filter Form --}}
-<form action="{{ route('viewinventory') }}" method="post" class="mb-4">
+<form action="{{ route('viewinventory') }}" method="GET" class="mb-4">
     <div class="flex space-x-4">
         <div>
             <label for="lokasigudang" class="block text-sm font-medium text-gray-700">Lokasi Gudang:</label>

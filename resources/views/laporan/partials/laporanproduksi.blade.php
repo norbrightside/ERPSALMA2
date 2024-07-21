@@ -1,6 +1,6 @@
 <h3 class="text-lg font-semibold mb-4">Laporan Produksi</h3>
 
-<form action="{{ route('produksi.report') }}" method="post" class="mb-4">
+<form action="{{ route('produksi.report') }}" method="GET" class="mb-4">
     <div class="flex flex-wrap gap-4">
         <div class="w-full md:w-1/5">
     <label for="bulan" class="block text-sm font-medium text-gray-700">Pilih Bulan:</label>
