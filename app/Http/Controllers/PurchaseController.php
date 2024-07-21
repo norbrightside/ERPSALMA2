@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\pembelian;
-use App\Models\supplier;
+use App\Models\Pembelian;
+use App\Models\Supplier;
 use App\Models\Produk;
-use App\Models\gudang;
+use App\Models\Gudang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
