@@ -46,7 +46,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @guest
-    @include('layouts.unlogin') <!-- Tampilkan navigasi default jika pengguna tidak login -->
+    @include('layouts.defaultnavigation') <!-- Tampilkan navigasi default jika pengguna tidak login -->
 @else
     @php
         $role = strtolower(Auth::user()->role); // Mengambil role pengguna jika sudah login
@@ -56,7 +56,7 @@
     @if (View::exists($navigationView))
         @include($navigationView) <!-- Tampilkan navigasi sesuai role jika view tersedia -->
     @else
-        @include('layouts.unlogin') <!-- Tampilkan navigasi default jika view sesuai role tidak tersedia -->
+        @include('layouts.defaultnavigation') <!-- Tampilkan navigasi default jika view sesuai role tidak tersedia -->
     @endif
 @endguest
 
