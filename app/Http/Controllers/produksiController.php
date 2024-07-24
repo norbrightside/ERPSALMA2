@@ -38,14 +38,14 @@ class ProduksiController extends Controller
     
         $jadwalProduksi = $query->paginate(15)->withQueryString();
     
-        return view('produksi.jadwalproduksi', compact('jadwalProduksi', 'produk'));
+        return view('Produksi.jadwalproduksi', compact('jadwalProduksi', 'produk'));
     }
     
     public function addjadwal(): View
     {
         $produk = Produk::all();
        
-        return view('produksi.addjadwalproduksi' ,compact( 'produk'));
+        return view('Produksi.addjadwalproduksi' ,compact( 'produk'));
         
     }
     public function viewjadwal(): View
@@ -54,7 +54,7 @@ class ProduksiController extends Controller
         $jadwalProduksi = Produksi::with('produk')->orderBy(DB::raw('CASE WHEN status = "Preproduksi" THEN 1 ELSE 2 END'))
         ->latest()
         ->paginate(15);
-        return view('produksi.viewjadwalproduksi', compact('jadwalProduksi', 'produk'));
+        return view('Produksi.viewjadwalproduksi', compact('jadwalProduksi', 'produk'));
         
     }
     public function store(Request $request)

@@ -34,10 +34,10 @@ class Pembelian extends Model
     }
     public function supplier()
     {
-        return $this->belongsTo(supplier::class, 'idsupplier', 'idsupplier'); // Relasi dengan model Pelanggan
+        return $this->belongsTo(Supplier::class, 'idsupplier', 'idsupplier'); // Relasi dengan model Pelanggan
     }
     public function gudang()
     {
-        return $this->belongsTo(gudang::class, 'idgudang', 'idgudang'); // Relasi dengan model Produk
+        return $this->belongsTo(Gudang::class, 'idgudang', 'idgudang'); // Relasi dengan model Produk
     }
 }

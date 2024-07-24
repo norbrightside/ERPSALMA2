@@ -78,11 +78,14 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-                <x-responsive-nav-link href="#">
+                <x-responsive-nav-link href="{{ route('addsale') }}" :active="request()->routeIs('addsale')">
                     {{ __('Input Penjualan') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="#">
+                <x-responsive-nav-link href="{{ route('confirmsale') }}" :active="request()->routeIs('confirmsale')">
                     {{ __('Confirm Payment') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('sales.report')" :active="request()->routeIs('sales.report')">
+                    {{ __('Laporan Penjualan') }}
                 </x-responsive-nav-link>
         </div>
 

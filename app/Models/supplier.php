@@ -21,6 +21,6 @@ class Supplier extends Model
    
     public function pembelian()
     {
-        return $this->hasMany(pembelian::class, 'idsupplier', 'idsupplier'); // Relasi dengan model Pelanggan
+        return $this->hasMany(Pembelian::class, 'idsupplier', 'idsupplier'); // Relasi dengan model Pelanggan
     }
 }

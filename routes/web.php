@@ -88,11 +88,6 @@ Route::middleware('Purchase')->group(function() {
 
 });
 
-    Route::middleware('Admin')->group(function() {
-        
-       
-       
-});
 require __DIR__.'/auth.php';
 
 

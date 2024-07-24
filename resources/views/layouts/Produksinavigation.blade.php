@@ -78,15 +78,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-dropdown-link href="{{ route('jadwalProduksi')}}" :active="request()->routeIs('jadwalproduksi')">
-                    {{ __('Add Jadwal Produksi') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Input Produksi') }}
-                </x-dropdown-link>
-                <x-dropdown-link href="#">
-                    {{ __('Status Produksi') }}
-                </x-dropdown-link>
+            <x-responsive-nav-link :href="route('viewjadwal')" :active="request()->routeIs('viewjadwal')">
+                {{ __('List Jadwal Produksi') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('addjadwal')" :active="request()->routeIs('addjadwal')">
+                {{ __('Input Produksi') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('produksi.report')" :active="request()->routeIs('produksi.report')">
+                {{ __('Report Produksi') }}
+            </x-responsive-nav-link>
             </div>
 
         <!-- Responsive Settings Options -->
