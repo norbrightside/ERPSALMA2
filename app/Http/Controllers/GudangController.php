@@ -26,7 +26,11 @@ class GudangController extends Controller
         $produk = Produk::all(); // Ambil semua data produk
         $gudang = Gudang::all();
         $query = Inventory::with('produk')->orderBy('updated_at', 'desc');
-    
+        $totalByProduct = $stok->groupBy('namabarang')
+        ->map(function ($items) {
+            return $items->sum('total_qtty');
+        })
+        ->sortKeys();
         // Apply filters if present
         if ($request->filled('lokasigudang')) {
             $query->whereHas('gudang', function ($query) use ($request) {
@@ -46,7 +50,7 @@ class GudangController extends Controller
     
         $viewinventory = $query->paginate(15)->withQueryString();
     
-        return view('Gudang.inventory', compact('viewinventory', 'produk', 'stok', 'gudang'));
+        return view('Gudang.inventory', compact('viewinventory', 'produk', 'stok', 'gudang', 'totalByProduct'));
     }
     
     public function creategudang(Request $request): View
@@ -63,7 +67,11 @@ class GudangController extends Controller
         $produk = Produk::all(); // Ambil semua data produk
         $gudang = Gudang::all();
         $query = Inventory::with('produk')->orderBy('updated_at', 'desc');
-    
+        $totalByProduct = $stok->groupBy('namabarang')
+        ->map(function ($items) {
+            return $items->sum('total_qtty');
+        })
+        ->sortKeys();
         // Apply filters if present
         if ($request->filled('lokasigudang')) {
             $query->whereHas('gudang', function ($query) use ($request) {
@@ -83,7 +91,7 @@ class GudangController extends Controller
     
         $viewinventory = $query->paginate(15)->withQueryString();
     
-        return view('Gudang.listinventory', compact('viewinventory', 'produk', 'stok', 'gudang'));
+        return view('Gudang.listinventory', compact('viewinventory', 'produk', 'stok', 'gudang', 'totalByProduct'));
     }
 
     public function showAddInventoryForm()
@@ -138,19 +146,20 @@ class GudangController extends Controller
 
         return redirect()->back()->with('success', 'Status berhasil diperbarui');
     }
-    public function highlightStock()
-    {
-        $stok = DB::table('gudang')
-            ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
-            ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
-            ->select('gudang.lokasigudang', 'produk.namabarang',
-                DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) - 
-                         SUM(CASE WHEN inventory.status = "dikirim" THEN inventory.qtty ELSE 0 END) as total_qtty'))
-            ->groupBy('produk.namabarang', 'gudang.lokasigudang')
-            ->orderBy('gudang.lokasigudang', 'asc')
-            ->get();
+   public function highlightStock()
+{
+    $stok = DB::table('gudang')
+        ->join('inventory', 'gudang.idgudang', '=', 'inventory.idgudang')
+        ->join('produk', 'inventory.idbarang', '=', 'produk.idbarang')
+        ->select('produk.namabarang',
+            DB::raw('SUM(CASE WHEN inventory.status = "diterima" THEN inventory.qtty ELSE 0 END) - 
+                     SUM(CASE WHEN inventory.status = "dikirim" THEN inventory.qtty ELSE 0 END) as total_qtty'))
+        ->groupBy('produk.namabarang')
+        ->orderBy('produk.namabarang', 'asc')
+        ->get();
     
-        return response()->json($stok);
-    }
+    return response()->json($stok);
+}
+
     
 }

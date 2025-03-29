@@ -60,7 +60,6 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qtty Order</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga Pembelian</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cetak</th>
         </tr>
     </thead>
@@ -73,13 +72,12 @@
                 <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->produk->namabarang }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->qttyorder, 0, ',', '.') }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ number_format($purchase->harga, 0, ',', '.') }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ $purchase->status }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <form action="{{ route('pembelian.updateStatus', $purchase->idorder) }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <select name="status" onchange="this.form.submit()">
-                            <option>Status</option>
+                            <option value="pemesanan baru" {{ $purchase->status == 'pemesanan baru' ? 'selected' : '' }}>Pemesanan Baru</option>
                             <option value="dibayar" {{ $purchase->status == 'dibayar' ? 'selected' : '' }}>Dibayar</option>
                             <option value="diterima" {{ $purchase->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
                         </select>

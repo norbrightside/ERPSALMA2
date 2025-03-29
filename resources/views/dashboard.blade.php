@@ -124,7 +124,7 @@
     <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <h3 class="font-semibold text-xl text-gray-800 leading-tight">Highlight Pembelian</h3>
+                <h3 class="font-semibold text-xl text-gray-800 leading-tight">Pembelian Hari Ini</h3>
                 <div id="pembelian-highlight"></div>
             </div>
         </div>
@@ -176,7 +176,7 @@
         
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">Highlight Stok Tersisa</h3>
+                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">Stok Tersedia</h3>
                     <div id="stock-highlight"></div>
                 </div>
             </div>
@@ -188,7 +188,6 @@
                         method: 'GET',
                         success: function(data) {
                             var stockContent = '<table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>' +
-                                '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lokasi Gudang</th>' +
                                 '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Barang</th>' +
                                 '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sisa Stok</th>' +
                                 '</tr></thead><tbody class="bg-white divide-y divide-gray-200">';
@@ -198,7 +197,7 @@
                             } else {
                                 $.each(data, function(index, item) {
                                     stockContent += '<tr>' +
-                                        '<td class="px-6 py-4">' + item.lokasigudang + '</td>' +
+                                        
                                         '<td class="px-6 py-4">' + item.namabarang + '</td>' +
                                         '<td class="px-6 py-4">' + Math.floor(item.total_qtty) + " Kg" +'</td>' +
                                         '</tr>';

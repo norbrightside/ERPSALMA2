@@ -45,8 +45,6 @@
                 <option value="">Semua</option>
                 <option value="Order Baru" {{ request('status') == 'Order Baru' ? 'selected' : '' }}>Order Baru</option>
                 <option value="Lunas" {{ request('status') == 'Lunas' ? 'selected' : '' }}>Lunas</option>
-                <option value="Pengiriman" {{ request('status') == 'Pengiriman' ? 'selected' : '' }}>Pengiriman</option>
-                <option value="Selesai" {{ request('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
             </select>
         </div>
         <div class="w-full md:w-auto flex items-end">
@@ -69,7 +67,6 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai Transaksi</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qtty</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Update Status</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cetak</th>
         </tr>
     </thead>
@@ -82,7 +79,6 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ $sales->produk->namabarang }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sales->nilaitransaksi, 0, ',', '.') }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($sales->qttypenjualan, 0, ',', '.') }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $sales->status }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
                 <form action="{{ route('sales.updateStatus', $sales->nofak) }}" method="POST">
                     @csrf
@@ -91,9 +87,7 @@
                         <option>Status</option>
                         <option value="Order Baru" {{ $sales->status == 'Order Baru' ? 'selected' : '' }}>Order Baru</option>
                         <option value="Lunas" {{ $sales->status == 'Lunas' ? 'selected' : '' }}>Lunas</option>
-                        <option value="Pengiriman" {{ $sales->status == 'Pengiriman' ? 'selected' : '' }}>Pengiriman</option>
-                        <option value="Selesai" {{ $sales->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                    </select>
+                         </select>
                 </form>
             </td>
             <td class="px-6 py-4">

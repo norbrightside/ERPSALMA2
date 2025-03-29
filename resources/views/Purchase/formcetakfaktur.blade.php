@@ -9,11 +9,9 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div class="header-container">
-                        <div class="header-right">
-                            <x-application-logo class="logo block h-9 w-auto fill-current text-gray-800" />
-                            <h2 class="salma">SALMA</h2>
-                            <p class="alamat" >Gudang {{ $pembelian->gudang->lokasigudang }}</p>
-                        </div>
+                            <div class="header-right">
+                                <img src="{{ asset('build/assets/logo.png') }}" alt="Logo" class="w-40 h-40" />                        
+                            </div>
                         <div class="header-left">
                         <h2 class="idorder">Faktur Pembelian #{{ $pembelian->idorder }}</h2>
                         <p class="alamat">{{ $pembelian->tanggalorder }}
@@ -22,7 +20,7 @@
                             {{ $pembelian->supplier->kontak }} <br>
                             {{ $pembelian->supplier->alamat }}
                             </p>
-                        
+                            <p class="alamat" >Stok {{ $pembelian->gudang->lokasigudang }}</p>
                         </div>
                         </div>
             <table class="min-w-full divide-y divide-gray-200">
@@ -79,7 +77,6 @@
             </div>
         </div>
 
-        <script src="{{ mix('js/app.js') }}"></script>
         <script>
             function printInvoice() {
                 window.print();

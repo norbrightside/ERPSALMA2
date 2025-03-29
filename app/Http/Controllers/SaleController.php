@@ -126,7 +126,7 @@ class SaleController extends Controller
         $sale->updated_at = Carbon::now();
         $sale->save();
     
-        if ($sale->status == 'lunas') {
+        if ($sale->status == 'Lunas') {
             // Pilih random idgudang dari tabel gudang
             $randomGudang2 = DB::table('gudang')
                 ->whereExists(function ($query) use ($sale) {

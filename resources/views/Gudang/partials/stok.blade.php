@@ -13,7 +13,7 @@
     <tr>
         <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->lokasigudang }}</td>
         <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->namabarang }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">{{ number_format($inventory->total_qtty, 0, ',', '.') }}</td>
+        <td class="px-6 py-4 whitespace-nowrap">{{ number_format($inventory->total_qtty, 0, ',', '.') }} Kg</td>
     </tr>
     @endforeach
     </tbody>

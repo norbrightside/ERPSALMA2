@@ -83,7 +83,7 @@ class ProduksiController extends Controller
     $produksi->updated_at = Carbon::now();
     $produksi->save();
 
-    if ($produksi->status == 'produksi') {
+    if ($produksi->status == 'Produksi') {
         // Pilih random idgudang dari tabel gudang
         $randomGudang = DB::table('gudang')->inRandomOrder()->first();
         $randomGudang2 = DB::table('gudang')

@@ -51,7 +51,6 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ 'Rp ' . number_format($jadwal->biayaproduksi, 0, ',', '.') }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->produk->namabarang }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ number_format($jadwal->qttyproduksi, 0, ',', '.') }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->status }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
                 <form action="{{ route('produksi.updateStatus', $jadwal->idproduksi) }}" method="POST">
                     @csrf

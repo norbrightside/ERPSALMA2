@@ -10,9 +10,7 @@
                 <div class="p-6 text-gray-900">
                     <div class="header-container">
                     <div class="header-right">
-                        <x-application-logo class="logo block h-9 w-auto fill-current text-gray-800" />
-                        <h2 class="salma">SALMA</h2>
-                        
+                        <img src="{{ asset('build/assets/logo.png') }}" alt="Logo" class="w-40 h-40" />                        
                     </div>
                     <div class="header-left">
                     <h2 class="idorder">Faktur Penjualan #{{ $sale->nofak }}</h2>
@@ -55,7 +53,7 @@
         </div>
     </div>
 
-    <script src="{{ mix('js/app.js') }}"></script>
+    
     <script>
         function printInvoice() {
             window.print();

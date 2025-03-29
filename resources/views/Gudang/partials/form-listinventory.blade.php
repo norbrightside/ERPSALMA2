@@ -7,7 +7,7 @@
             <label for="lokasigudang" class="block text-sm font-medium text-gray-700">Lokasi Gudang:</label>
             <select name="lokasigudang" id="lokasigudang" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 <option value="">Semua Lokasi</option>
-                @foreach ($stok as $item)
+                @foreach ($gudang as $item)
                     <option value="{{ $item->lokasigudang }}" {{ request('lokasigudang') == $item->lokasigudang ? 'selected' : '' }}>{{ $item->lokasigudang }}</option>
                 @endforeach
             </select>
@@ -57,20 +57,21 @@
                 <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->gudang->lokasigudang}}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->updated_at}}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->produk->namabarang}}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ $inventory->status}}</td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($inventory->qtty, 0, ',', '.') }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <form action="{{ route('inventory.updateStatus', $inventory->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <select name="status" onchange="this.form.submit()">
-                            <option>Status</option>
-                            <option value="diterima" {{ $inventory->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
-                            <option value="dikirim" {{ $inventory->status == 'dikirim' ? 'selected' : '' }}>Dikirim</option>
+                            <option value="Antrian Keluar" {{ $inventory->status == 'Antrian Keluar' ? 'selected' : '' }}>Antrian Keluar</option>
+                            <option value="Antrian Masuk" {{ $inventory->status == 'Antrian Masuk' ? 'selected' : '' }}>Antrian Masuk</option>
+                            <option value="Dikirim" {{ $inventory->status == 'Dikirim' ? 'selected' : '' }}>Dikirim</option>
+                            <option value="Diterima" {{ $inventory->status == 'Diterima' ? 'selected' : '' }}>Diterima</option>
                             <!-- Add other statuses if needed -->
                         </select>
                     </form>
                 </td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ number_format($inventory->qtty, 0, ',', '.') }}</td>
+                
             </tr>
         @empty
             <tr>

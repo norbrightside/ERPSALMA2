@@ -11,14 +11,14 @@ class ProduksiTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create(config('app.faker_locale'));
-        $produkIds = DB::table('produk')->pluck('idbarang')->toArray();
-        foreach (range(1, 100) as $index) {
+        $produkIds = range(1, 8); // Only use idProduk 1 to 8
+        foreach (range(1, 15) as $index) {
             DB::table('produksi')->insert([
-                'tanggalproduksi' => $faker->dateTimeBetween('2020-01-01', '2024-12-31'),
-                'biayaproduksi' => $faker->numberBetween(100000, 10000000),
+                'tanggalproduksi' => $faker->dateTimeBetween('2024-01-01', '2024-07-31'),
                 'idbarang' => $faker->randomElement($produkIds),
-                'qttyproduksi' => $faker->numberBetween(1000, 10000), // Menggunakan nilai numerik
-                'status' => $faker->randomElement(['Preproduksi', 'Produksi', 'Selesai']),
+                'qttyproduksi' => $qtty = $faker->numberBetween(1000, 2000), // Using numerical value
+                'biayaproduksi' => $qtty * 352,
+                'status' => $faker->randomElement(['Preproduksi']),
             ]);
         }
     }

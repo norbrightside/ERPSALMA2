@@ -194,7 +194,7 @@ public function storepadi(Request $request)
         $purchase->updated_at = Carbon::now();
         $purchase->save();
 
-        if ($purchase->status == 'dibayar' || $purchase->status == 'diterima') {
+        if ($purchase->status == 'dibayar') {
             // Pilih random idgudang dari tabel gudang
            
             // Tambahkan data baru ke tabel inventory
